@@ -2,9 +2,13 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Exceptions\BaseHandler;
 
-class Image extends Model
+/**
+ * Class Image
+ * @package App
+ */
+class Image extends BaseModel
 {
     public static $IMAGE_ID = 'img_id';
     public static $IMAGE_PATH = 'img_path';

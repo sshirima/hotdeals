@@ -9,6 +9,7 @@
 namespace App\Exceptions;
 
 use App\Response;
+use Illuminate\Database\Eloquent\Model;
 use Symfony\Component\Debug\Exception\FatalErrorException;
 
 
@@ -52,7 +53,7 @@ class BaseHandler extends Handler
     public static function fillParamOrThrow($model, array $params, $columns)
     {
 
-        if ($model == null) {
+        if ($model == null || !($model instanceof Model)) {
             throw new FatalErrorException();
         } else {
             for ($i = 0; $i < count($columns); $i++) {
@@ -66,12 +67,14 @@ class BaseHandler extends Handler
      * @param Response $response
      * @param $description
      * @param \Exception $ex
+     * @return Response
      */
     public static function setFailedResponse(Response $response, $description, \Exception $ex)
     {
         $response->setResponseFail();
         $response->setDescription($description);
         $response->setDetailedDescription($ex->getMessage());
+        return $response;
     }
 
     /**
@@ -99,8 +102,8 @@ class BaseHandler extends Handler
     {
         $response = self::prepareModelResponse();
         try {
-            if ($model == null) {
-                throw new \Exception();
+            if ($model == null || !($model instanceof Model)) {
+                throw new FatalErrorException();
             } else {
                 $model->delete();
             }

@@ -10,6 +10,8 @@ namespace App\Http\Controllers;
 
 
 use App\Item;
+use App\Exceptions\BaseHandler;
+use App\Response;
 use Illuminate\Http\Request;
 
 class ItemController extends Controller
@@ -19,13 +21,16 @@ class ItemController extends Controller
     {
         $request = new Request();
         $request->attributes
-            ->add(['itm_type' => 'PRODUCT',
-                'itm_pcost' => 5000,
-                'itm_ccost' => 1000,
-                'itm_brand' => 'Shirima',
-                'fk_adv_id' => 3
+            ->add([
+                'itm_type' => 'service',
+                'itm_pcost' => 100,
+                'itm_ccost' => 200,
+                'itm_brand' => 'Iphone',
+                'fk_adv_id' => 3,
+                'fk_cat_id' => 2
             ]);
-        return Item::addItem($request->attributes->all());
+
+        return Item::addModel(new Item(), $request->attributes->all());
     }
 
     public function updateItem(Request $request)
@@ -33,20 +38,49 @@ class ItemController extends Controller
         $request = new Request();
         $request->attributes
             ->add([
-                'itm_id' => 10,
+                'itm_id' => 14,
                 'itm_type' => 'service',
                 'itm_pcost' => 100,
                 'itm_ccost' => 200,
                 'itm_brand' => 'Iphone',
-                'fk_adv_id' => 3
+                'fk_adv_id' => 3,
+                'fk_cat_id' => 2
             ]);
-        return Item::updateItem($request->attributes->all());
+        $params = $request->attributes->all();
+
+        $id = $params[Item::$ITEM_ID];
+
+        $item = self::getItemById($id);
+
+        $item instanceof Item ? $response = Item::updateModel($item, $params) : $response = $item;
+
+        return $response;
     }
 
     public function deleteItem()
     {
+        $id = 1;
 
-        return Item::deleteItem(4);
+        $item = self::getItemById($id);
+
+        $item instanceof Item ? $response = Item::deleteModel($item) : $response = $item;
+
+        return $response;
+    }
+
+    /**
+     * @param $id
+     * @return array|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model
+     */
+    public static function getItemById($id)
+    {
+
+        try {
+            return Item::findOrFail($id);
+        } catch (\Exception $ex) {
+            return array('response' => BaseHandler::setFailedResponse(new Response(), 'Failed to retrieve data with id{' . $id . '}', $ex),
+                'data' => null);
+        }
     }
 
 }

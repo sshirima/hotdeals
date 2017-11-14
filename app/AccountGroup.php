@@ -2,9 +2,7 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
-
-class AccountGroup extends Model
+class AccountGroup extends BaseModel
 {
     //
     public static $DEFAULT_LEVEL_ADMIN = 1;

@@ -10,63 +10,68 @@ namespace App\Http\Controllers;
 
 
 use App\Seller;
+use App\Exceptions\BaseHandler;
+use App\Response;
 use Illuminate\Http\Request;
-use App\AccountGroup;
 
 class SellerController extends Controller
 {
-    private $sellerModel;
-
-    public function registerSellerAccount()
+    public function addSeller(Request $request)
     {
-        $this->initializesSellerModel();
-        //Add account
         $request = new Request();
-
         $request->attributes
-            ->add(['acc_fname' => 'Samson', 'acc_lname' => 'Shirima', 'acc_email' => 'sshirima@gmail.com',
-                'acc_password' => 'password', 'fk_grp_id' => AccountGroup::$DEFAULT_LEVEL_SELLER,
-                'acc_login' => false, 'acc_active' => false, 'slr_phonenumber' => '0754710618']);
+            ->add([
+                'slr_phonenumber' => '0754711711',
+                'fk_acc_id' => 34
+            ]);
 
-        return $this->sellerModel->addNewSeller($request);;
+        return Seller::addModel(new Seller(), $request->attributes->all());
     }
 
-    private function initializesSellerModel()
+    public function updateSeller(Request $request)
     {
-        $this->sellerModel = new Seller();
-    }
-
-    public function updateSellerAccount()
-    {
-        $this->initializesSellerModel();
-        //Update account
         $request = new Request();
-
         $request->attributes
-            ->add(['acc_id' => 2, 'acc_fname' => 'Samson', 'acc_lname' => 'Shirima', 'acc_email' => 'sshirima@gmail.com',
-                'acc_password' => 'changePassword', 'fk_grp_id' => AccountGroup::$DEFAULT_LEVEL_SELLER,
-                'acc_login' => false, 'acc_active' => true, 'slr_phonenumber' => '07659000000', 'slr_id' => 2]);
+            ->add([
+                'slr_id' => 12,
+                'slr_phonenumber' => '0754711711',
+                'fk_acc_id' => 34
+            ]);
+        $params = $request->attributes->all();
 
-        //Validate the input parameters
+        $id = $params[Seller::$SELLER_ID];
 
-        //Hashing account password
+        $seller = self::getSellerById($id);
 
-        //Update seller
-        $seller = new Seller();
+        $seller instanceof Seller ? $response = Seller::updateModel($seller, $params) : $response = $seller;
 
-        return $this->sellerModel->updateSellerInfo($request);
+        return $response;
     }
 
     public function deleteSeller()
     {
-        $this->initializesSellerModel();
-        $request = new Request();
+        $id = 1;
 
-        $request->attributes->add(['slr_id' => 4]);
+        $seller = self::getSellerById($id);
 
-        $id = $request->attributes->get(Seller::$SELLER_ID);
+        $seller instanceof Seller ? $response = Seller::deleteModel($seller) : $response = $seller;
 
-        return $this->sellerModel->deleteSellerInfo($id);
+        return $response;
+    }
+
+    /**
+     * @param $id
+     * @return array|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model
+     */
+    public static function getSellerById($id)
+    {
+
+        try {
+            return Seller::findOrFail($id);
+        } catch (\Exception $ex) {
+            return array('response' => BaseHandler::setFailedResponse(new Response(), 'Failed to retrieve data with id{' . $id . '}', $ex),
+                'data' => null);
+        }
     }
 
 

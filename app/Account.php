@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
-class Account extends Model
+class Account extends BaseModel
 {
     //
     public static $TABLENAME = 'accounts';

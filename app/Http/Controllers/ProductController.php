@@ -15,42 +15,63 @@ use Illuminate\Http\Request;
 class ProductController extends Controller
 {
 
-    /**
-     * @param Request $request
-     * @return array
-     */
     public function addProduct(Request $request)
     {
         $request = new Request();
         $request->attributes
-            ->add(['pdc_name' => 'Iphone 8',
+            ->add(['pdc_name' => 'Iphone 7',
                 'pdc_manufacturer' => 'Apple',
                 'pdc_model' => 'Iphone 8',
-                'fk_itm_id' => 7
+                'fk_itm_id' => 15
             ]);
-        return Product::addProduct($request->attributes->all());
+
+        return Product::addModel(new Product(), $request->attributes->all());
     }
 
-    /**
-     * @param Request $request
-     * @return array
-     */
     public function updateProduct(Request $request)
     {
         $request = new Request();
         $request->attributes
             ->add([
-                'pdc_id' => 1,
-                'pdc_name' => 'Phone',
-                'pdc_manufacturer' => 'Samsung',
-                'pdc_model' => 'Note 3',
-                'fk_itm_id' => 6
+                'pdc_name' => 'Iphone 8',
+                'pdc_manufacturer' => 'Apple',
+                'pdc_model' => 'Iphone 8',
+                'fk_itm_id' => 15
             ]);
-        return Product::updateProduct($request->attributes->all());
+        $params = $request->attributes->all();
+
+        $id = $params[Product::$PRODUCT_ID];
+
+        $product = self::getProductById($id);
+
+        $product instanceof Product ? $response = Product::updateModel($product, $params) : $response = $product;
+
+        return $response;
     }
 
     public function deleteProduct()
     {
-        return Product::deleteProduct(1);
+        $id = 1;
+
+        $product = self::getProductById($id);
+
+        $product instanceof Product ? $response = Product::deleteModel($product) : $response = $product;
+
+        return $response;
+    }
+
+    /**
+     * @param $id
+     * @return array|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model
+     */
+    public static function getProductById($id)
+    {
+
+        try {
+            return Product::findOrFail($id);
+        } catch (\Exception $ex) {
+            return array('response' => BaseHandler::setFailedResponse(new Response(), 'Failed to retrieve data with id{' . $id . '}', $ex),
+                'data' => null);
+        }
     }
 }
