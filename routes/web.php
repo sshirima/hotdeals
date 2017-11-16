@@ -14,6 +14,50 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+/**
+ * SELLER ROUTES
+ */
+Route::get('/register-seller', [
+    'uses' => 'SellerController@registerSeller',
+    'as' => 'register-account']);
+
+Route::get('/update-seller', [
+    'uses' => 'SellerController@updateSeller',
+    'as' => 'update-seller']);
+
+Route::get('/delete-seller', [
+    'uses' => 'SellerController@deleteSeller',
+    'as' => 'delete-seller']);
+/**
+ * ADVERTS ROUTES
+ */
+Route::get('/get-adverts', [
+    'uses' => 'AdvertController@getAdvertsAll',
+    'as' => 'get-adverts']);
+
+/**
+ * SERVICE ADVERTS ROUTES
+ */
+Route::get('/add-service_advert', [
+    'uses' => 'ServiceAdvertController@addServiceAdvert',
+    'as' => 'add-service_advert']);
+
+Route::get('/update-service_advert', [
+    'uses' => 'ServiceAdvertController@updateServiceAdvert',
+    'as' => 'update-service_advert']);
+
+/**
+ * PRODUCT ADVERTS ROUTES
+ */
+Route::get('/add-product_advert', [
+    'uses' => 'ProductAdvertController@addProductAdvert',
+    'as' => 'add-product_advert']);
+
+Route::get('/update-product_advert', [
+    'uses' => 'ProductAdvertController@addProductAdvert',
+    'as' => 'update-product_advert']);
+
 /**
  * Route test for accounts
  */
@@ -35,14 +79,6 @@ Route::get('/delete-account', [
 Route::get('/add-seller', [
     'uses' => 'SellerController@addSeller',
     'as' => 'register-seller']);
-
-Route::get('/update-seller', [
-    'uses' => 'SellerController@updateSeller',
-    'as' => 'update-seller-info']);
-
-Route::get('/delete-seller', [
-    'uses' => 'SellerController@deleteSeller',
-    'as' => 'delete-seller']);
 
 /**
  * Advert routes

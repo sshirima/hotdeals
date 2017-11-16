@@ -19,7 +19,8 @@ class CreateSellersTable extends Migration
             $table->unsignedInteger('fk_acc_id');
 
             $table->foreign('fk_acc_id')->references('acc_id')
-                ->on('accounts');
+                ->on('accounts')
+                ->onDelete('cascade');
         });
     }
 

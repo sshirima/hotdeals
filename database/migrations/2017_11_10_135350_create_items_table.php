@@ -15,6 +15,7 @@ class CreateItemsTable extends Migration
     {
         Schema::create('items', function (Blueprint $table) {
             $table->increments('itm_id');
+            $table->string('itm_name', 50);
             $table->enum('itm_type', array('SERVICE', 'PRODUCT'));
             $table->double('itm_pcost');
             $table->double('itm_ccost');

@@ -2,6 +2,8 @@
 
 namespace App;
 
+use Illuminate\Support\Facades\DB;
+
 class AccountGroup extends BaseModel
 {
     //
@@ -18,4 +20,11 @@ class AccountGroup extends BaseModel
     public static $UPDATED_AT = 'updated_at';
     protected $table = 'accountgroups';
     protected $primaryKey = 'grp_id';
+
+    public static function getGroupIdByLevel($level)
+    {
+        $results = DB::table(AccountGroup::$TABLE_NAME)->select(AccountGroup::$ACCOUNT_GROUP_ID)
+            ->where(AccountGroup::$ACCOUNT_GROUP_LEVEL, '=', $level)->get();
+        return $results[0]->grp_id;
+    }
 }

@@ -8,7 +8,30 @@
 
 namespace App;
 
+use Illuminate\Http\Request;
+
 class AccountManager
 {
+    public static function registerSeller(Request $request)
+    {
+
+        $account = Account::addAccount($request);
+
+        return Seller::addSeller($request, $account);
+    }
+
+    public static function updateSeller(Request $request)
+    {
+
+        $account = Account::updateAccount($request);
+
+        return Seller::updateSeller($request, $account);
+
+    }
+
+    public static function deleteSeller($id)
+    {
+        return Account::deleteAccount($id);
+    }
 
 }

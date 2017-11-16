@@ -1,4 +1,6 @@
 <?php
+
+use App\Exceptions\BaseHandler;
 /**
  * Created by PhpStorm.
  * User: samson
@@ -8,71 +10,52 @@
 
 namespace App\Http\Controllers;
 
-
+use App\AccountManager;
 use App\Seller;
-use App\Exceptions\BaseHandler;
 use App\Response;
 use Illuminate\Http\Request;
 
+
 class SellerController extends Controller
 {
-    public function addSeller(Request $request)
+    public function registerSeller(Request $request)
     {
         $request = new Request();
-        $request->attributes
-            ->add([
-                'slr_phonenumber' => '0754711711',
-                'fk_acc_id' => 34
-            ]);
 
-        return Seller::addModel(new Seller(), $request->attributes->all());
+        $request->attributes->add([
+            'acc_fname' => 'Jimmy',
+            'acc_lname' => 'Shirima',
+            'acc_email' => 'jimmy.shirima@hotedeals.com',
+            'acc_password' => 'password',
+            'slr_phonenumber' => '0754711711'
+        ]);
+
+        return AccountManager::registerSeller($request);
     }
+
 
     public function updateSeller(Request $request)
     {
         $request = new Request();
         $request->attributes
             ->add([
-                'slr_id' => 12,
-                'slr_phonenumber' => '0754711711',
-                'fk_acc_id' => 34
+                'slr_id' => 20,
+                'acc_fname' => 'Samson',
+                'acc_lname' => 'Stephen',
+                'acc_email' => 'samson.shirima@hotedeals.com',
+                'acc_password' => 'password',
+                'slr_phonenumber' => '255754710618',
+                'fk_acc_id' => 43
             ]);
-        $params = $request->attributes->all();
-
-        $id = $params[Seller::$SELLER_ID];
-
-        $seller = self::getSellerById($id);
-
-        $seller instanceof Seller ? $response = Seller::updateModel($seller, $params) : $response = $seller;
-
-        return $response;
+        return AccountManager::updateSeller($request);
     }
 
     public function deleteSeller()
     {
-        $id = 1;
-
-        $seller = self::getSellerById($id);
-
-        $seller instanceof Seller ? $response = Seller::deleteModel($seller) : $response = $seller;
-
-        return $response;
+        $seller_account_id = 65;
+        return AccountManager::deleteSeller($seller_account_id);
     }
 
-    /**
-     * @param $id
-     * @return array|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model
-     */
-    public static function getSellerById($id)
-    {
-
-        try {
-            return Seller::findOrFail($id);
-        } catch (\Exception $ex) {
-            return array('response' => BaseHandler::setFailedResponse(new Response(), 'Failed to retrieve data with id{' . $id . '}', $ex),
-                'data' => null);
-        }
-    }
 
 
 }

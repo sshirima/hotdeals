@@ -10,6 +10,7 @@ namespace App\Exceptions;
 
 use App\Response;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 use Symfony\Component\Debug\Exception\FatalErrorException;
 
 
@@ -61,6 +62,20 @@ class BaseHandler extends Handler
             }
         }
         return $model;
+    }
+
+    public static function getParametersFromRequest($request, $model_columns)
+    {
+        $params = array();
+        if (!($request instanceof $request) || $model_columns == null) {
+            throw new FatalErrorException();
+        } else {
+            $request_attributes = $request->attributes->all();
+            for ($i = 0; $i < count($model_columns); $i++) {
+                $params[$model_columns[$i]] = $request_attributes[$model_columns[$i]];
+            }
+        }
+        return $params;
     }
 
     /**

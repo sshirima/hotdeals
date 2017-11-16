@@ -15,7 +15,6 @@ class CreateProductsTable extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->increments('pdc_id');
-            $table->string('pdc_name', 50);
             $table->string('pdc_manufacturer', 50)->nullable();
             $table->string('pdc_model', 50)->nullable();
             $table->unsignedInteger('fk_itm_id');

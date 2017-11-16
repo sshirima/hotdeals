@@ -11,6 +11,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Exceptions\BaseHandler;
+use Illuminate\Http\Request;
 
 class BaseModel extends Model
 {
@@ -49,5 +50,21 @@ class BaseModel extends Model
         $response = BaseHandler::deleteOrThrow($model);
 
         return array('response' => $response['response'], 'data' => $response['data']);
+    }
+
+    /**
+     * @param $id
+     * @param $model
+     * @return array
+     */
+    public static function findModelById($id, $model)
+    {
+
+        try {
+            return $model::findOrFail($id);
+        } catch (\Exception $ex) {
+            return array('response' => BaseHandler::setFailedResponse(new Response(), 'Failed to retrieve data with id{' . $id . '}', $ex),
+                'data' => null);
+        }
     }
 }

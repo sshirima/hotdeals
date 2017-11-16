@@ -2,8 +2,8 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use App\Exceptions\BaseHandler;
 
 class Account extends BaseModel
 {
@@ -22,16 +22,98 @@ class Account extends BaseModel
     protected $table = 'accounts';
     protected $primaryKey = 'acc_id';
 
-    public static function fillAccountParams(Request $request, Account $account)
+    /**
+     * @param Request $request
+     * @return array
+     */
+    public static function addAccount(Request $request)
+    {
+        //Get user input values from the request
+        $account_params = Account::getParamsFromRequest($request, true);
+
+        //Get ID of the seller group
+        $account_params[Account::$ACCOUNT_FK_GROUPID] = AccountGroup::getGroupIdByLevel(AccountGroup::$DEFAULT_LEVEL_SELLER);
+
+        return Account::addModel(new Account(), $account_params);
+    }
+
+    /**
+     * @param Request $request
+     * @return array|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model
+     */
+    public static function updateAccount(Request $request)
+    {
+        //Get user input values from the request
+        $account_params = Account::getParamsFromRequest($request, false);
+
+        $account = self::getAccountById($account_params[Account::$ACCOUNT_ID]);
+
+        if ($account instanceof Account) {
+
+            $account_params[Account::$ACCOUNT_FK_GROUPID] = $account[self::$ACCOUNT_FK_GROUPID];
+
+            $response = Account::updateModel($account, $account_params);
+        } else {
+            $response = $account;
+        }
+
+        return $response;
+    }
+
+    /**
+     * @param $id
+     * @return array|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model
+     */
+    public static function deleteAccount($id)
     {
 
-        $account->setAttribute(Account::$ACCOUNT_FK_GROUPID, $request->attributes->get(Account::$ACCOUNT_FK_GROUPID));
-        $account->setAttribute(Account::$ACCOUNT_FIRSTNAME, $request->attributes->get(Account::$ACCOUNT_FIRSTNAME));
-        $account->setAttribute(Account::$ACCOUNT_LASTNAME, $request->attributes->get(Account::$ACCOUNT_LASTNAME));
-        $account->setAttribute(Account::$ACCOUNT_EMAIL, $request->attributes->get(Account::$ACCOUNT_EMAIL));
-        $account->setAttribute(Account::$ACCOUNT_PASSWORD, $request->attributes->get(Account::$ACCOUNT_PASSWORD));
-        $account->setAttribute(Account::$ACCOUNT_LOGIN_STATUS, $request->attributes->get(Account::$ACCOUNT_LOGIN_STATUS));
-        $account->setAttribute(Account::$ACCOUNT_ACTIVE, $request->attributes->get(Account::$ACCOUNT_ACTIVE));
-        return $account;
+        $account = self::getAccountById($id);
+
+        $account instanceof Account ? $response = Account::deleteModel($account) : $response = $account;
+
+        return $response;
+    }
+
+    /**
+     * @param $id
+     * @return array|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model
+     */
+    public static function getAccountById($id)
+    {
+
+        try {
+            return Account::findOrFail($id);
+        } catch (\Exception $ex) {
+            return array('response' => BaseHandler::setFailedResponse(new Response(), 'Failed to retrieve data with id{' . $id . '}', $ex),
+                'data' => null);
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @param $isnew
+     * @return array
+     */
+    public static function getParamsFromRequest(Request $request, $isnew)
+    {
+        $user_params = $request->attributes->all();
+        if ($isnew) {
+            return array(self::$ACCOUNT_FIRSTNAME => $user_params[self::$ACCOUNT_FIRSTNAME],
+                self::$ACCOUNT_LASTNAME => $user_params[self::$ACCOUNT_LASTNAME],
+                self::$ACCOUNT_EMAIL => $user_params[self::$ACCOUNT_EMAIL],
+                self::$ACCOUNT_PASSWORD => $user_params[self::$ACCOUNT_PASSWORD],
+                self::$ACCOUNT_ACTIVE => true,
+                self::$ACCOUNT_LOGIN_STATUS => true);
+        } else {
+            return array(
+                self::$ACCOUNT_ID => $user_params[Seller::$SELLER_FK_ACC_ID],
+                self::$ACCOUNT_FIRSTNAME => $user_params[self::$ACCOUNT_FIRSTNAME],
+                self::$ACCOUNT_LASTNAME => $user_params[self::$ACCOUNT_LASTNAME],
+                self::$ACCOUNT_EMAIL => $user_params[self::$ACCOUNT_EMAIL],
+                self::$ACCOUNT_PASSWORD => $user_params[self::$ACCOUNT_PASSWORD],
+                self::$ACCOUNT_ACTIVE => true,
+                self::$ACCOUNT_LOGIN_STATUS => true);
+        }
+
     }
 }
