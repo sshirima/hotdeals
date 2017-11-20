@@ -29,7 +29,7 @@ class ServiceAdvertController extends Controller
             'itm_ccost' => 1000,
             'adv_expiredate' => '2017-11-16',
             'fk_cat_id' => 2,
-            'fk_loc_id' => '2017-11-16',
+            'fk_reg_id' => 3,
             'fk_slr_id' => 39
         ]);
 
@@ -53,7 +53,7 @@ class ServiceAdvertController extends Controller
             'itm_brand' => 'Azura health fitness',
             'srv_id' => 14,
             'fk_cat_id' => 2,
-            'fk_loc_id' => '2017-11-16',
+            'fk_reg_id' => 3,
             'fk_slr_id' => 39
         ]);
 

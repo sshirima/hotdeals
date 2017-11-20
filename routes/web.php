@@ -10,9 +10,68 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/', [
+    'uses' => 'AdvertController@getAdvertsAll',
+    'as' => 'home']);
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/sign-out', function () {
+    return view('home');
+});
+
+Route::get('/help', function () {
+    return view('help');
+});
+
+Route::get('/sign-in', function () {
+    return view('sign_in');
+});
+
+Route::get('/sign-up', function () {
+    return view('sign_up');
+});
+
+Route::get('/advert-details', function () {
+    return view('advert_details_default');
+});
+
+Route::get('/seller/advert-details', function () {
+    return view('advert_details_seller');
+});
+
+Route::get('/authorizer/advert-details', function () {
+    return view('advert_details_authorizer');
+});
+
+Route::get('/admin', function () {
+    return view('home_admin');
+});
+
+Route::get('/admin/users', function () {
+    return view('admin_users');
+});
+
+Route::get('/authorizer', function () {
+    return view('home_authorizer');
+});
+
+Route::get('/seller', function () {
+    return view('home_seller');
+});
+
+Route::get('/category', function () {
+    return view('result_category');
+});
+
+Route::get('/search', function () {
+    return view('result_search');
+});
+
+Route::get('/add-product_advert', function () {
+    return view('add_product_advert');
+});
+
+Route::get('/add-service_advert', function () {
+    return view('add_service_advert');
 });
 
 /**

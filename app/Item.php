@@ -25,7 +25,10 @@ class Item extends BaseModel
         if ($advert['response']->code == 'OK') {
             $item_params = self::getParamsFromRequest($request, true);
             $item_params[self::$ITEM_FK_ADVERT_ID] = $advert['data'][Advert::$ADVERT_ID];
-            return Item::addModel(new Item(), $item_params);
+
+            $item = Item::addModel(new Item(), $item_params);
+            ItemLocation::addItemLocation($request, $item);
+            return $item;
         } else {
             return $advert;
         }

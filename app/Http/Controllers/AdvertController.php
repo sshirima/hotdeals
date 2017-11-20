@@ -9,16 +9,15 @@
 namespace App\Http\Controllers;
 
 
-use App\Advert;
 use App\BaseAdvertManager;
-use App\Exceptions\BaseHandler;
-use App\Response;
-use Illuminate\Http\Request;
+use App\AdvertPublisher;
 
 class AdvertController extends Controller
 {
     public function getAdvertsAll()
     {
-        return BaseAdvertManager::getAllAdverts();
+        $adverts = BaseAdvertManager::getAllAdverts();
+        //return ['adverts'=>AdvertPublisher::threeColumnsOutput($adverts)];
+        return view('home', ['adverts_rows' => AdvertPublisher::threeColumnsOutput($adverts)]);
     }
 }

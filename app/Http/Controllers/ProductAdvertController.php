@@ -30,6 +30,7 @@ class ProductAdvertController extends Controller
             'pdc_manufacturer' => 'Apple Inc',
             'pdc_model' => 'Iphone 8 plus',
             'fk_cat_id' => 3,
+            'fk_reg_id' => 3,
             'fk_slr_id' => 39
         ]);
 
@@ -53,6 +54,7 @@ class ProductAdvertController extends Controller
             'pdc_manufacturer' => 'Apple Inc',
             'pdc_model' => 'Iphone 8 plus',
             'fk_cat_id' => 3,
+            'fk_reg_id' => 3,
             'fk_slr_id' => 39
         ]);
         return ProductAdvertManager::updateProductAdvert($request);

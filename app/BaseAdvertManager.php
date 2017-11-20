@@ -19,7 +19,7 @@ class BaseAdvertManager
     {
         //Add advert
         $advert = Advert::addAdvert($request);
-        //Add item
+
         return Item::addItem($request, $advert);
     }
 
@@ -35,7 +35,10 @@ class BaseAdvertManager
     {
         return DB::table('adverts')
             ->join('items', 'items.fk_adv_id', '=', 'adverts.adv_id')
-            ->select('*')
+            ->join('items_locations', 'items.itm_id', '=', 'items_locations.fk_itm_id')
+            ->join('locations', 'items_locations.fk_loc_id', '=', 'locations.loc_id')
+            ->join('regions', 'locations.fk_reg_id', '=', 'regions.reg_id')
+            ->select('adv_id', 'adv_title', 'adv_description', 'adv_expiredate', 'itm_brand', 'itm_pcost', 'itm_ccost', 'reg_name')
             ->get();
     }
 }
