@@ -18,44 +18,23 @@ use Illuminate\Http\Request;
 
 class SellerController extends Controller
 {
-    public function registerSeller(Request $request)
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
     {
-        $request = new Request();
-
-        $request->attributes->add([
-            'acc_fname' => 'Jimmy',
-            'acc_lname' => 'Shirima',
-            'acc_email' => 'jimmy.shirima@hotedeals.com',
-            'acc_password' => 'password',
-            'slr_phonenumber' => '0754711711'
-        ]);
-
-        return AccountManager::registerSeller($request);
+        $this->middleware('auth:seller');
     }
 
-
-    public function updateSeller(Request $request)
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
     {
-        $request = new Request();
-        $request->attributes
-            ->add([
-                'slr_id' => 20,
-                'acc_fname' => 'Samson',
-                'acc_lname' => 'Stephen',
-                'acc_email' => 'samson.shirima@hotedeals.com',
-                'acc_password' => 'password',
-                'slr_phonenumber' => '255754710618',
-                'fk_acc_id' => 43
-            ]);
-        return AccountManager::updateSeller($request);
+        return view('seller');
     }
-
-    public function deleteSeller()
-    {
-        $seller_account_id = 65;
-        return AccountManager::deleteSeller($seller_account_id);
-    }
-
-
-
 }

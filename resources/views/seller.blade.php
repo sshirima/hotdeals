@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-    New advert
+    Seller | Home
 @endsection
 
 @section('header')
@@ -9,7 +9,7 @@
 @endsection
 
 @section('mainrow')
-
+    You are logged in as <strong>SELLER</strong>
 @endsection
 
 @section('footer')

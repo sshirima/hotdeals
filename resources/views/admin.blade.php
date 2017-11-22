@@ -9,7 +9,7 @@
 @endsection
 
 @section('mainrow')
-    You are logged in as admin
+    You are logged in as <strong>ADMIN</strong>
 @endsection
 
 @section('footer')

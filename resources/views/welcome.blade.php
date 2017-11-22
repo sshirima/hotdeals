@@ -14,7 +14,7 @@
 
 @section('mainrow')
     <div class="panel-body">
-        Welcome to the home page of everyone
+        Welcome to the home page of <strong>EVERYONE</strong>
     </div>
     {{--@include('includes.errors_message')
     @foreach($adverts_rows as $columns)

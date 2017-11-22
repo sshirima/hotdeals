@@ -26,3 +26,12 @@ Route::prefix('admin')->group(function () {
     Route::get('/', 'AdminController@index')->name('admin.dashboard');
     Route::get('/logout', 'Auth\AdminLoginController@logout')->name('admin.logout');
 });
+
+Route::prefix('seller')->group(function () {
+    Route::get('/register', 'Auth\SellerRegisterController@showRegistrationForm')->name('seller.register');
+    Route::post('/register', 'Auth\SellerRegisterController@register')->name('seller.register.submit');
+    Route::get('/login', 'Auth\SellerLoginController@showLoginForm')->name('seller.login');
+    Route::post('/login', 'Auth\SellerLoginController@login')->name('seller.login.submit');
+    Route::get('/', 'SellerController@index')->name('seller.dashboard');
+    Route::get('/logout', 'Auth\SellerLoginController@logout')->name('seller.logout');
+});
