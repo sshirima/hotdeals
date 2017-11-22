@@ -24,21 +24,21 @@ class AccountController extends Controller
      * @param Request $request
      * @return mixed
      */
-    public function addAccount(Request $request)
+    public function register(Request $request)
     {
-        $request = new Request();
-        $request->attributes
-            ->add([
-                'acc_fname' => 'Rose',
-                'acc_lname' => 'Masae',
-                'acc_email' => 'rose.masae@vodacom.com',
-                'acc_password' => 'password',
-                'acc_login' => false,
-                'acc_active' => false,
-                'fk_grp_id' => 2
-            ]);
+        $this->validate($request, [
+            'acc_fname' => 'required',
+            'acc_lname' => 'required',
+            'acc_email' => 'required|unique:accounts',
+            'acc_password' => 'required|confirmed|min:6',
+            'agree_terms' => 'required'
+        ]);
+        $account_params = $request->request->all();
 
-        return Account::addModel(new Account(), $request->attributes->all());
+        unset($account_params['acc_password_confirmation']);
+        unset($account_params['agree_terms']);
+        return view('home');
+        //return view('home_seller',['result'=>Account::addModel(new Account(), $account_params)]);//Account::addModel(new Account(), $account_params);
     }
 
     /**

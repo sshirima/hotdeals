@@ -20,21 +20,21 @@
     <link rel="stylesheet" href="{{ URL::asset('css/master.css') }}">
     <link rel="stylesheet" href="{{ URL::asset('css/header.css') }}">
     <link rel="stylesheet" href="{{ URL::asset('css/advert_row.css') }}">
+    <link rel="stylesheet" href="{{ URL::asset('css/login-form.css') }}">
 
 </head>
 
 <body>
-<div id="header_row" class="row">
+<div class="row" style="background-color: rgb(0, 156, 187)">
     @include('layouts.header')
 </div>
-<div style="padding: 5px" id="menubar_row" class="row">
+<div style="padding: 5px" class="row">
     @include('layouts.menu_bar')
 </div>
-<div id="main_row" class="row">
-    @include('layouts.main_row')
+<div class="wrapper row">
+    @include('layouts.mainrow')
 </div>
-<div id="footer_row" class="row">
-    @include('layouts.footer')
-</div>
+<div class="push"></div>
+@include('layouts.footer')
 </body>
 </html>

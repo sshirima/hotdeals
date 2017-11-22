@@ -1,15 +1,15 @@
 @extends('layouts.master')
 
 @section('title')
-    Sign Up
+    Admin | Home
 @endsection
 
 @section('header')
-    @include('includes.header_signin_signout')
+    @include('includes.header_user')
 @endsection
 
 @section('mainrow')
-
+    You are logged in as admin
 @endsection
 
 @section('footer')

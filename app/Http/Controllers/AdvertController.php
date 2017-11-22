@@ -16,8 +16,9 @@ class AdvertController extends Controller
 {
     public function getAdvertsAll()
     {
-        $adverts = BaseAdvertManager::getAllAdverts();
+        return null;
+        //$adverts = BaseAdvertManager::getAllAdverts();
         //return ['adverts'=>AdvertPublisher::threeColumnsOutput($adverts)];
-        return view('home', ['adverts_rows' => AdvertPublisher::threeColumnsOutput($adverts)]);
+        //return view('home', ['adverts_rows' => AdvertPublisher::threeColumnsOutput($adverts)]);
     }
 }

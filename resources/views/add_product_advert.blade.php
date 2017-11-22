@@ -5,7 +5,7 @@
 @endsection
 
 @section('header')
-    @include('includes.header_in_account')
+    @include('includes.header_user')
 @endsection
 
 @section('mainrow')

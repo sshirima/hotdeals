@@ -1,11 +1,11 @@
 @extends('layouts.master')
 
 @section('title')
-    Home
+    Welcome
 @endsection
 
 @section('header')
-    @include('includes.header_user')
+    @include('includes.header_with_search')
 @endsection
 
 @section('menubar')
@@ -14,7 +14,7 @@
 
 @section('mainrow')
     <div class="panel-body">
-        You are logged in as User
+        Welcome to the home page of everyone
     </div>
     {{--@include('includes.errors_message')
     @foreach($adverts_rows as $columns)

@@ -1,1 +1,1 @@
-<h1 class="pull-left">BRAND</h1>
+<div id="brand_name" class="pull-right"><h1 class="pull-left">BRAND</h1></div>

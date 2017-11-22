@@ -1,26 +1,23 @@
-#header_row {
-    background-color: rgb(0, 156, 187);
-    border-radius: 0px;
-    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.1);
-    height: 100px;
-    left: 0;
-    opacity: 1;
-    position: relative;
-    rotation: 0;
-    top: 0;
-    width: 100%;
+html, body {
+    height: 100%;
+    margin: 0;
 }
 
-#menubar_row {
-    position: relative;
+.wrapper {
+    min-height: 80%;
+
+    /* Equal to height of footer */
+    /* But also accounting for potential margin-bottom of last child */
+    margin-bottom: -50px;
 }
 
-#main_row {
-    position: relative;
+.footer,
+.push {
+    height: 50px;
 }
 
-#footer_row {
-    position: relative;
+.center-footer {
+    text-align: center;
 }
 
 /**
