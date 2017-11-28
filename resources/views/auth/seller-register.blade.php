@@ -5,10 +5,10 @@
 @endsection
 
 @section('header')
-    @include('includes.header_signin_signout')
+    @include('includes.headers.seller-login')
 @endsection
 
-@section('mainrow')
+@section('content')
     <div class="container">
         @include('includes.errors_message')
         <div class="row">

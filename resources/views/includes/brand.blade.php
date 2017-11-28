@@ -1,1 +1,5 @@
-<div id="brand_name" class="pull-right"><h1 class="pull-left">BRAND</h1></div>
+<div class="col-md-3">
+    <div href="{{ url('/') }}">
+        <div class="pull-right" id="brand_name" style="color: white;">NAME</div>
+    </div>
+</div>

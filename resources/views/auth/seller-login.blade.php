@@ -5,10 +5,10 @@
 @endsection
 
 @section('header')
-    @include('includes.header_admin')
+    @include('includes.headers.seller-login')
 @endsection
 
-@section('mainrow')
+@section('content')
     @include('includes.errors_message')
     <div class="row">
         <div class="col-sm-6 col-md-4 col-md-offset-4">

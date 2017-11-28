@@ -26,15 +26,25 @@
 
 <body>
 <div class="row" style="background-color: rgb(0, 156, 187)">
-    @include('layouts.header')
+    <div class="col-md-1"></div>
+    <div class="col-md-10">@yield('header')</div>
+    <div class="col-md-1"></div>
 </div>
 <div style="padding: 5px" class="row">
-    @include('layouts.menu_bar')
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+        @yield('menubar')
+    </div>
+    <div class="col-md-1"></div>
 </div>
+
 <div class="wrapper row">
-    @include('layouts.mainrow')
+    <div class="col-md-1"></div>
+    <div class="col-md-10">@yield('content')</div>
+    <div class="col-md-1"></div>
 </div>
 <div class="push"></div>
-@include('layouts.footer')
+@yield('footer')
 </body>
+
 </html>

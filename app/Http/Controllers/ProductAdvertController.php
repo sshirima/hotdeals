@@ -1,62 +1,57 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: samson
- * Date: 11/16/2017
- * Time: 11:07 PM
- */
 
 namespace App\Http\Controllers;
 
-
-use App\ProductAdvertManager;
-use Illuminate\Http\Request;
+use App\Repositories\AdvertRepository;
+use App\Repositories\ImageRepository;
+use App\Repositories\ProductRepository;
+use App\Http\Requests\CreateProductAdvertRequest;
+use Intervention\Image\Facades\Image;
 
 class ProductAdvertController extends Controller
 {
+    private $productsRepo;
+    private $advertsRepo;
+    private $imageRepo;
 
-    public function addProductAdvert(Request $request)
+    public function __construct(AdvertRepository $advertRepository,
+                                ProductRepository $productRepository, ImageRepository $imageRepository)
     {
-        $request = new Request();
-
-        $request->attributes->add([
-            'adv_title' => 'Apple iPhone 7 or 7 Plus 32GB or 128GB Smartphone with (PRODUCT)Red (GSM and CDMA Unlocked) - No Contract Required',
-            'adv_description' => '4.7” Retina HD multitouch display, Storage options: 32GB or 128GB',
-            'itm_pcost' => 2000,
-            'itm_ccost' => 1000,
-            'itm_brand' => 'Apple',
-            'adv_expiredate' => '2017-11-16',
-            'itm_name' => 'Smartphone',
-            'pdc_manufacturer' => 'Apple Inc',
-            'pdc_model' => 'Iphone 8 plus',
-            'fk_cat_id' => 3,
-            'fk_reg_id' => 3,
-            'fk_slr_id' => 39
-        ]);
-
-        return ProductAdvertManager::addProductAdvert($request);
+        $this->middleware('auth:seller');
+        $this->advertsRepo = $advertRepository;
+        $this->productsRepo = $productRepository;
+        $this->imageRepo = $imageRepository;
     }
 
-    public function updateProductAdvert(Request $request)
+    public function create()
     {
-        $request = new Request();
+        return view('product_advert.create')->with('seller', auth()->user());
+    }
 
-        $request->attributes->add([
-            'adv_id' => 21,
-            'adv_title' => 'Apple iPhone 7 or 7 Plus 32GB or 128GB Smartphone with (PRODUCT)Red (GSM and CDMA Unlocked) - No Contract Required',
-            'adv_description' => '4.7” Retina HD multitouch display, Storage options: 32GB or 128GB',
-            'itm_id' => 34,
-            'itm_name' => 'Smartphone',
-            'itm_pcost' => 2000,
-            'itm_ccost' => 1000,
-            'adv_expiredate' => '2017-11-16',
-            'pdc_id' => 23,
-            'pdc_manufacturer' => 'Apple Inc',
-            'pdc_model' => 'Iphone 8 plus',
-            'fk_cat_id' => 3,
-            'fk_reg_id' => 3,
-            'fk_slr_id' => 39
-        ]);
-        return ProductAdvertManager::updateProductAdvert($request);
+    public function store(CreateProductAdvertRequest $request)
+    {
+        $input = $request->all();
+
+        //Save the advert
+        $advert = $this->advertsRepo->create($input);
+
+
+        //Save the product
+        $input['advert_id'] = $advert->id;
+        $product = $this->productsRepo->create($input);
+
+        //Save the image
+        if ($request->hasFile('img_name')) {
+            $image = $request->file('img_name');
+            $filename = time() . '.' . $image->getClientOriginalExtension();
+            $location = public_path('images/' . $filename);
+            Image::make($image)->resize(800, 400)->save($location);
+
+            $input['img_name'] = $filename;
+            $saveImageInfo = $this->imageRepo->create($input);
+        }
+        //Flash::success('Product saved successfully.');
+
+        return redirect(route('seller.dashboard'));
     }
 }

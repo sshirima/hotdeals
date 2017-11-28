@@ -8,13 +8,53 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>@yield('title')</title>
+
+    <!-- Bootstrap CDN -->
+    <link href="{{ URL::asset('bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+    <!-- JQuery CDN -->
+    <script src="{{ URL::asset('js/jquery-1.11.1.min.js') }}"></script>
+    <!-- Javascript for bootstrap files -->
+    <link src="{{ URL::asset('bootstrap/js/bootstrap.min.js') }}" rel="stylesheet">
+    <!-- Font awesome cdn -->
+    <link rel="stylesheet" href="{{ URL::asset('fontawesome/css/font-awesome.min.css') }}">
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/master.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/header.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/advert_row.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/login-form.css') }}" rel="stylesheet">
+
 </head>
 <body>
-<div id="app">
+<div class="row" style="background-color: rgb(0, 156, 187)">
+    @yield('header')
+</div>
+<div style="padding: 5px" class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+        @yield('menubar')
+    </div>
+    <div class="col-md-1"></div>
+</div>
+<div class="wrapper row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+        @yield('content-md-10')
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                @yield('content')</div>
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+    <div class="col-md-1"></div>
+</div>
+<div class="push"></div>
+@yield('footer')
+
+{{--<div id="app">
     <nav class="navbar navbar-default navbar-static-top">
         <div class="container">
             <div class="navbar-header">
@@ -73,9 +113,7 @@
             </div>
         </div>
     </nav>
-
-    @yield('content')
-</div>
+</div>--}}
 
 <!-- Scripts -->
 <script src="{{ asset('js/app.js') }}"></script>

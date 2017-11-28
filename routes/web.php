@@ -11,13 +11,11 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'HomeController@index');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index');
+Route::get('/home', 'UserController@index');
 Route::get('/users/logout', 'Auth\LoginController@userLogout')->name('user.logout');
 
 Route::prefix('admin')->group(function () {
@@ -35,3 +33,15 @@ Route::prefix('seller')->group(function () {
     Route::get('/', 'SellerController@index')->name('seller.dashboard');
     Route::get('/logout', 'Auth\SellerLoginController@logout')->name('seller.logout');
 });
+
+Route::get('product-advert', 'ProductAdvertController@create')->name('product-advert.create');
+Route::post('product-advert', 'ProductAdvertController@store')->name('product-advert.store');
+
+Route::resource('regions', 'RegionController');
+
+Route::resource('categories', 'CategoryController');
+
+Route::resource('adverts', 'AdvertController');
+
+Route::resource('products', 'ProductController');
+

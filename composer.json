@@ -10,8 +10,13 @@
   "require": {
     "php": ">=5.6.4",
     "barryvdh/laravel-ide-helper": "v2.4.1",
+    "doctrine/dbal": "^2.5",
+    "infyomlabs/adminlte-templates": "5.5.x-dev",
+    "infyomlabs/laravel-generator": "5.5.x-dev",
+    "intervention/image": "^2.4",
     "laravel/framework": "5.4.*",
-    "laravel/tinker": "~1.0"
+    "laravel/tinker": "~1.0",
+    "laravelcollective/html": "^5.4"
   },
   "require-dev": {
     "fzaninotto/faker": "~1.4",

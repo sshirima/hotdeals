@@ -14,7 +14,8 @@
 
 @section('mainrow')
     <div class="panel-body">
-        You are logged in as <strong>USER</strong>
+        @component('components.who')
+        @endcomponent
     </div>
     {{--@include('includes.errors_message')
     @foreach($adverts_rows as $columns)

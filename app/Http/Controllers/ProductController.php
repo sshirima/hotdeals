@@ -1,77 +1,160 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: samson
- * Date: 11/14/2017
- * Time: 12:16 AM
- */
 
 namespace App\Http\Controllers;
 
-
-use App\Product;
+use App\Http\Requests\CreateProductRequest;
+use App\Http\Requests\UpdateProductRequest;
+use App\Repositories\ProductRepository;
+use App\Repositories\AdvertRepository;
 use Illuminate\Http\Request;
+use Flash;
+use Prettus\Repository\Criteria\RequestCriteria;
+use Response;
 
-class ProductController extends Controller
+class ProductController extends AppBaseController
 {
+    /** @var  ProductRepository */
+    private $productRepository;
 
-    public function addProduct(Request $request)
+    public function __construct(ProductRepository $productRepo)
     {
-        $request = new Request();
-        $request->attributes
-            ->add(['pdc_name' => 'Iphone 7',
-                'pdc_manufacturer' => 'Apple',
-                'pdc_model' => 'Iphone 8',
-                'fk_itm_id' => 15
-            ]);
-
-        return Product::addModel(new Product(), $request->attributes->all());
-    }
-
-    public function updateProduct(Request $request)
-    {
-        $request = new Request();
-        $request->attributes
-            ->add([
-                'pdc_name' => 'Iphone 8',
-                'pdc_manufacturer' => 'Apple',
-                'pdc_model' => 'Iphone 8',
-                'fk_itm_id' => 15
-            ]);
-        $params = $request->attributes->all();
-
-        $id = $params[Product::$PRODUCT_ID];
-
-        $product = self::getProductById($id);
-
-        $product instanceof Product ? $response = Product::updateModel($product, $params) : $response = $product;
-
-        return $response;
-    }
-
-    public function deleteProduct()
-    {
-        $id = 1;
-
-        $product = self::getProductById($id);
-
-        $product instanceof Product ? $response = Product::deleteModel($product) : $response = $product;
-
-        return $response;
+        $this->productRepository = $productRepo;
     }
 
     /**
-     * @param $id
-     * @return array|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model
+     * Display a listing of the Product.
+     *
+     * @param Request $request
+     * @return Response
      */
-    public static function getProductById($id)
+    public function index(Request $request)
     {
+        $this->productRepository->pushCriteria(new RequestCriteria($request));
+        $products = $this->productRepository->all();
 
-        try {
-            return Product::findOrFail($id);
-        } catch (\Exception $ex) {
-            return array('response' => BaseHandler::setFailedResponse(new Response(), 'Failed to retrieve data with id{' . $id . '}', $ex),
-                'data' => null);
+        return view('products.index')
+            ->with('products', $products);
+    }
+
+    /**
+     * Show the form for creating a new Product.
+     *
+     * @return Response
+     */
+    public function create()
+    {
+        return view('products.create');
+    }
+
+    /**
+     * Store a newly created Product in storage.
+     *
+     * @param CreateProductRequest $request
+     *
+     * @return Response
+     */
+    public function store(CreateProductRequest $request)
+    {
+        $input = $request->all();
+
+        //Advert input
+        $advertRepo = new AdvertRepository();
+        $advertRepo->create($input);
+
+        //Product input
+        $product = $this->productRepository->create($input);
+
+        Flash::success('Product saved successfully.');
+
+        return redirect(route('products.index'));
+    }
+
+    /**
+     * Display the specified Product.
+     *
+     * @param  int $id
+     *
+     * @return Response
+     */
+    public function show($id)
+    {
+        $product = $this->productRepository->findWithoutFail($id);
+
+        if (empty($product)) {
+            Flash::error('Product not found');
+
+            return redirect(route('products.index'));
         }
+
+        return view('products.show')->with('product', $product);
+    }
+
+    /**
+     * Show the form for editing the specified Product.
+     *
+     * @param  int $id
+     *
+     * @return Response
+     */
+    public function edit($id)
+    {
+        $product = $this->productRepository->findWithoutFail($id);
+
+        if (empty($product)) {
+            Flash::error('Product not found');
+
+            return redirect(route('products.index'));
+        }
+
+        return view('products.edit')->with('product', $product);
+    }
+
+    /**
+     * Update the specified Product in storage.
+     *
+     * @param  int $id
+     * @param UpdateProductRequest $request
+     *
+     * @return Response
+     */
+    public function update($id, UpdateProductRequest $request)
+    {
+        $product = $this->productRepository->findWithoutFail($id);
+
+        if (empty($product)) {
+            Flash::error('Product not found');
+
+            return redirect(route('products.index'));
+        }
+
+        $product = $this->productRepository->update($request->all(), $id);
+
+        Flash::success('Product updated successfully.');
+
+        return redirect(route('products.index'));
+    }
+
+    /**
+     * Remove the specified Product from storage.
+     *
+     * @param  int $id
+     *
+     * @return Response
+     */
+    public function destroy($id)
+    {
+        $product = $this->productRepository->findWithoutFail($id);
+
+        if (empty($product)) {
+            Flash::error('Product not found');
+
+            return redirect(route('products.index'));
+        }
+
+        $this->productRepository->delete($id);
+
+        Flash::success('Product deleted successfully.');
+
+        return redirect(route('products.index'));
     }
 }

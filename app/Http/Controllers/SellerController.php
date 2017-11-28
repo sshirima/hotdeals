@@ -1,31 +1,22 @@
 <?php
 
-use App\Exceptions\BaseHandler;
-/**
- * Created by PhpStorm.
- * User: samson
- * Date: 11/12/2017
- * Time: 12:18 AM
- */
-
 namespace App\Http\Controllers;
 
-use App\AccountManager;
-use App\Seller;
-use App\Response;
-use Illuminate\Http\Request;
-
+use App\Repositories\AdvertRepository;
+use Illuminate\Support\Facades\DB;
 
 class SellerController extends Controller
 {
+    private $advertsRepo;
+
     /**
-     * Create a new controller instance.
-     *
-     * @return void
+     * SellerController constructor.
+     * @param AdvertRepository $advertRepository
      */
-    public function __construct()
+    public function __construct(AdvertRepository $advertRepository)
     {
         $this->middleware('auth:seller');
+        $this->advertsRepo = $advertRepository;
     }
 
     /**
@@ -35,6 +26,18 @@ class SellerController extends Controller
      */
     public function index()
     {
-        return view('seller');
+        $seller = auth()->user();
+
+        //$adverts = $this->advertsRepo->findWhere(['seller_id'=> $seller->id]);
+
+        $adverts = DB::table('products')
+            ->select('adverts.id', 'adverts.title', 'products.brand', 'products.p_cost', 'products.c_cost', 'images.img_name')
+            ->join('adverts', 'adverts.id', '=', 'products.advert_id')
+            ->join('images', 'adverts.id', '=', 'images.advert_id')
+            ->where('adverts.seller_id', '=', $seller->id)
+            ->orderBy('adverts.created_at', 'desc')
+            ->get();
+
+        return view('seller')->with(['seller' => $seller, 'adverts' => $adverts]);
     }
 }

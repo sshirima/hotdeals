@@ -5,11 +5,12 @@
 @endsection
 
 @section('header')
-    @include('includes.header_user')
+    @include('includes.header_admin')
 @endsection
 
-@section('mainrow')
-    You are logged in as <strong>ADMIN</strong>
+@section('content')
+    @component('components.who')
+    @endcomponent
 @endsection
 
 @section('footer')
