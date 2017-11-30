@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateLocationsTable extends Migration
+class CreateAdvertCategoryTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,13 @@ class CreateLocationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('locations', function (Blueprint $table) {
-            $table->increments('id');
+        Schema::create('adverts_categories', function (Blueprint $table) {
+
             $table->unsignedInteger('advert_id');
-            $table->unsignedInteger('region_id');
+            $table->unsignedInteger('category_id');
+
             $table->foreign('advert_id')->references('id')->on('adverts');
-            $table->foreign('region_id')->references('id')->on('regions');
+            $table->foreign('category_id')->references('id')->on('categories');
         });
     }
 
@@ -29,6 +30,6 @@ class CreateLocationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('locations');
+        Schema::dropIfExists('adverts_categories');
     }
 }

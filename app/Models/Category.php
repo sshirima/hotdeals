@@ -20,12 +20,14 @@ class Category extends Model
      * @var array
      */
     public static $rules = [
-        'name' => 'required|max:50'
+        'cat_name' => 'required|max:50'
     ];
     public $timestamps = false;
+
     public $table = 'categories';
+
     public $fillable = [
-        'name'
+        'cat_name'
     ];
     protected $dates = ['deleted_at'];
     /**
@@ -34,7 +36,7 @@ class Category extends Model
      * @var array
      */
     protected $casts = [
-        'name' => 'string'
+        'cat_name' => 'string'
     ];
 
 

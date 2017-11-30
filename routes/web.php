@@ -32,10 +32,12 @@ Route::prefix('seller')->group(function () {
     Route::post('/login', 'Auth\SellerLoginController@login')->name('seller.login.submit');
     Route::get('/', 'SellerController@index')->name('seller.dashboard');
     Route::get('/logout', 'Auth\SellerLoginController@logout')->name('seller.logout');
+    Route::get('/product-advert/{id}', 'SellerController@productAdvertShow')->name('product-advert.show');
 });
 
 Route::get('product-advert', 'ProductAdvertController@create')->name('product-advert.create');
 Route::post('product-advert', 'ProductAdvertController@store')->name('product-advert.store');
+
 
 Route::resource('regions', 'RegionController');
 

@@ -19,7 +19,7 @@
         <div class="box box-primary">
 
             <div class="box-body">
-                <div>Seller: {{ $seller }}</div>
+                {{$regions}}
                 <div class="row">
                     {!! Form::open(['route' => 'product-advert.store', 'files'=> true]) !!}
                     <div class="col-md-6">
@@ -30,10 +30,10 @@
                     </div>
                     {!! Form::close() !!}
                 </div>
+
             </div>
         </div>
     </div>
-
 
 @endsection
 

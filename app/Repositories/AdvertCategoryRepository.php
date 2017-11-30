@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Models\Region;
+use App\Models\AdvertCategory;
 use InfyOm\Generator\Common\BaseRepository;
 
 /**
@@ -14,20 +14,14 @@ use InfyOm\Generator\Common\BaseRepository;
  * @method Region find($id, $columns = ['*'])
  * @method Region first($columns = ['*'])
  */
-class RegionRepository extends BaseRepository
+class AdvertCategoryRepository extends BaseRepository
 {
-    /**
-     * @var array
-     */
-    protected $fieldSearchable = [
-        'reg_name'
-    ];
 
     /**
      * Configure the Model
      **/
     public function model()
     {
-        return Region::class;
+        return AdvertCategory::class;
     }
 }

@@ -20,7 +20,7 @@ class CategoryRepository extends BaseRepository
      * @var array
      */
     protected $fieldSearchable = [
-        'name'
+        'cat_name'
     ];
 
     /**

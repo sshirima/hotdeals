@@ -7,7 +7,7 @@
 <!-- Name Field -->
 <div class="form-group">
     {!! Form::label('name', 'Name:') !!}
-    <p>{!! $region->name !!}</p>
+    <p>{!! $region->reg_name !!}</p>
 </div>
 
 <!-- Created At Field -->

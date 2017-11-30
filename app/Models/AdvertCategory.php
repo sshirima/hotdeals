@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *
  * @property string name
  */
-class Region extends Model
+class AdvertCategory extends Model
 {
 
     /**
@@ -21,14 +21,16 @@ class Region extends Model
      * @var array
      */
     public static $rules = [
-        'reg_name' => 'required|max:50'
+        'advert_id' => 'required',
+        'category_id' => 'required'
     ];
     public $timestamps = false;
 
-    public $table = 'regions';
+    public $table = 'adverts_categories';
 
     public $fillable = [
-        'reg_name'
+        'advert_id',
+        'category_id',
     ];
     /**
      * The attributes that should be casted to native types.
@@ -36,7 +38,8 @@ class Region extends Model
      * @var array
      */
     protected $casts = [
-        'reg_name' => 'string'
+        'advert_id' => 'integer',
+        'category_id' => 'integer'
     ];
 
 

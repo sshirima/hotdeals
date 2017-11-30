@@ -8,7 +8,7 @@
     <tbody>
     @foreach($categories as $category)
         <tr>
-            <td>{!! $category->name !!}</td>
+            <td>{!! $category->cat_name !!}</td>
             <td class="pull-right">
                 {!! Form::open(['route' => ['categories.destroy', $category->id], 'method' => 'delete']) !!}
                 <div class='btn-group'>

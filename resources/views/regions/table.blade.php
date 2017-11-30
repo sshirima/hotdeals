@@ -8,7 +8,7 @@
     <tbody>
     @foreach($regions as $region)
         <tr>
-            <td>{!! $region->name !!}</td>
+            <td>{!! $region->reg_name !!}</td>
             <td class="pull-right">
                 {!! Form::open(['route' => ['regions.destroy', $region->id], 'method' => 'delete']) !!}
                 <div class='btn-group'>
