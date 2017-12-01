@@ -53,4 +53,25 @@ class Advert extends Model
         'approveddate' => 'date',
         'seller_id' => 'integer'
     ];
+
+    public function product()
+    {
+        return $this->hasOne(Product::class);
+    }
+
+    public function images()
+    {
+        return $this->hasMany('App\Models\Image');
+    }
+
+    public function location()
+    {
+        return $this->hasOne('App\Models\Location');
+    }
+
+    public function categories()
+    {
+        return $this->belongsToMany('App\Models\Category', 'advert_category', 'advert_id', 'category_id');
+    }
+
 }

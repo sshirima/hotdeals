@@ -16,30 +16,18 @@ use Flash;
 
 class ProductAdvertController extends Controller
 {
-    private $productsRepo;
     private $advertsRepo;
-    private $imageRepo;
-    private $locationRepo;
     private $regionRepo;
     private $categoryRepo;
-    private $advertCategoryRepo;
 
     public function __construct(AdvertRepository $advertRepository,
-                                ProductRepository $productRepository,
-                                ImageRepository $imageRepository,
-                                LocationRepository $locationRepository,
                                 RegionRepository $regionRepository,
-                                CategoryRepository $categoryRepository,
-                                AdvertCategoryRepository $advertCategoryRepository)
+                                CategoryRepository $categoryRepository)
     {
         $this->middleware('auth:seller');
         $this->advertsRepo = $advertRepository;
-        $this->productsRepo = $productRepository;
-        $this->imageRepo = $imageRepository;
-        $this->locationRepo = $locationRepository;
         $this->regionRepo = $regionRepository;
         $this->categoryRepo = $categoryRepository;
-        $this->advertCategoryRepo = $advertCategoryRepository;
     }
 
     public function create()
@@ -61,27 +49,29 @@ class ProductAdvertController extends Controller
         //Save the advert
         $advert = $this->advertsRepo->create($input);
 
-
-        //Save the product
-        $input['advert_id'] = $advert->id;
-        $product = $this->productsRepo->create($input);
+        //Save product
+        $product = $advert->product()->create($input);
 
         //Save image
-        if ($request->hasFile('img_name')) {
-            $image = $request->file('img_name');
-            $filename = time() . '.' . $image->getClientOriginalExtension();
-            $location = public_path('images/' . $filename);
-            Image::make($image)->resize(800, 400)->save($location);
 
-            $input['img_name'] = $filename;
-            $saveImageInfo = $this->imageRepo->create($input);
+        if ($request->hasFile('img_name')) {
+            $images = $request->file('img_name');
+            $i = 0;
+            foreach ($images as $image) {
+                $filename = time() . $i . '.' . $image->getClientOriginalExtension();
+                $location = public_path('images/' . $filename);
+                Image::make($image)->resize(900, 600)->save($location);
+                $input['img_name'] = $filename;
+                $saveImageInfo = $advert->images()->create($input);
+                $i++;
+            }
         }
 
         //Save location
-        $location = $this->locationRepo->create($input);
+        $location = $advert->location()->create($input);
 
         //Save category
-        $advertCategory = $this->advertCategoryRepo->create($input);
+        $advertCategory = $advert->categories()->attach($input['category_id']);
 
         Flash::success('Advert saved successfully.');
 

@@ -26,7 +26,7 @@ class AdvertCategory extends Model
     ];
     public $timestamps = false;
 
-    public $table = 'adverts_categories';
+    public $table = 'advert_category';
 
     public $fillable = [
         'advert_id',

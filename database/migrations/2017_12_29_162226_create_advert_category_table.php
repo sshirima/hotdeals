@@ -13,7 +13,7 @@ class CreateAdvertCategoryTable extends Migration
      */
     public function up()
     {
-        Schema::create('adverts_categories', function (Blueprint $table) {
+        Schema::create('advert_category', function (Blueprint $table) {
 
             $table->unsignedInteger('advert_id');
             $table->unsignedInteger('category_id');
@@ -30,6 +30,6 @@ class CreateAdvertCategoryTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('adverts_categories');
+        Schema::dropIfExists('advert_category');
     }
 }

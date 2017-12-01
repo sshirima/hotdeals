@@ -20,7 +20,6 @@
     </section>
     @component('components.who')
     @endcomponent
-
     @include('includes.errors_message')
     @foreach($adverts->chunk(3) as $items)
         <div class="row">

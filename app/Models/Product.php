@@ -58,5 +58,9 @@ class Product extends Model
         'advert_id' => 'integer'
     ];
 
+    public function advert()
+    {
 
+        return $this->belongsTo('App\Models\Advert', 'advert_id', 'id');
+    }
 }

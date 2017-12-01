@@ -34,4 +34,9 @@ class Location extends Model
         'longitude' => 'string',
         'latitude' => 'string'
     ];
+
+    public function region()
+    {
+        return $this->belongsTo('App\Models\Region');
+    }
 }

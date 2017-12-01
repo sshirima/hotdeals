@@ -7,7 +7,7 @@
 <!-- Img Name Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('img_name', 'Add images') !!}
-    {!! Form::file('img_name') !!}
+    {!! Form::file('img_name[]',['multiple'=>true]) !!}
 </div>
 
 <!-- Expiredate Field -->
@@ -17,7 +17,7 @@
 </div>
 
 <div class="form-group col-md-6">
-    {!! Form::label('img_name', 'Select region') !!}
+    {!! Form::label('reg_name', 'Select region') !!}
     <select class="form-control" name="region_id">
         @foreach($regions as $region)
             <option value="{{$region->id}}">{{$region->reg_name}}</option>
