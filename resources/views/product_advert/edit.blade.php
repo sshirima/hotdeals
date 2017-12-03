@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-    Create advert
+    Edit advert
 @endsection
 
 @section('header')
@@ -11,16 +11,15 @@
 @section('content')
     <section class="content-header">
         <h2>
-            Create new product advert
+            Update advert details
         </h2>
     </section>
     <div class="content">
         @include('adminlte-templates::common.errors')
         <div class="box box-primary">
-
             <div class="box-body">
                 <div class="row">
-                    {!! Form::open(['route' => 'product-advert.store', 'files'=> true]) !!}
+                    {!! Form::open(['route' => ['product-advert.update', $advert->id], 'files'=> true]) !!}
                     <div class="col-md-6">
                         @include('product_advert.fields_advert')
                     </div>

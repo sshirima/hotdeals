@@ -9,17 +9,10 @@
 @endsection
 
 @section('menubar')
-    @include('includes.menubar')
+    @include('includes.menus.admin-menubar')
 @endsection
 
 @section('content')
-    <section class="row" style="padding:10px">
-        <a href="{{route('product-advert.create')}}">
-            <button class="btn btn-default pull-right">
-                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Advertise product
-            </button>
-        </a>
-    </section>
     <div class="row">
         <div class="col-md-8" style="border-right:1px solid">
             <div><h3>{{$advert->title}}</h3></div>
@@ -51,9 +44,6 @@
 
                 </div>
             </div>
-            <div><h4>Customer reviews</h4></div>
-            <div>Ratings</div>
-            <div><h4></h4></div>
             <div><h4>More details</h4></div>
             <div>{!!$advert->description!!}</div>
             <div><h4>Location</h4>
@@ -68,20 +58,7 @@
 
                     <p style="color: red">Sales end:<br>{{date_format(date_create($advert->expiredate),'M j')}}</p>
                 </div>
-                <div class="col-md-4">
-                    <div>
-                        <div style="font-size: 16px" class="glyphicon glyphicon-eye-open" aria-hidden="true"></div>
-                    </div>
-                    0 Viewers
-                </div>
-                <div class="col-md-4">
-                    <div style="font-size: 14px" class="glyphicon glyphicon-star-empty" aria-hidden="true"></div>
-                    <div style="font-size: 14px" class="glyphicon glyphicon-star-empty" aria-hidden="true"></div>
-                    <div style="font-size: 14px" class="glyphicon glyphicon-star-empty" aria-hidden="true"></div>
-                    <div style="font-size: 14px" class="glyphicon glyphicon-star-empty" aria-hidden="true"></div>
-                    <div style="font-size: 14px" class="glyphicon glyphicon-star-empty" aria-hidden="true"></div>
-                </div>
-                0 Ratings
+
             </div>
             <div class="row" style="padding: 10px">
                 <div class="col-md-6 ">
@@ -93,18 +70,8 @@
                 </div>
             </div>
             <div class="row" style="padding: 10px; ">
-                <a href="{{route('product-advert.edit',[$advert->id])}}">
-                    <div class="btn btn-primary" style="width: 100%">
-                        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit advert
-                    </div>
-                </a>
-
-            </div>
-            <div class="row" style="padding: 10px">
-                <a>
-                    <div class="btn btn-danger" style="width: 100%">
-                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Delete advert
-                    </div>
+                <a href="{{route('advert.approve', [$advert->id])}}">
+                    <div class="btn btn-success" style="width: 100%">Approve</div>
                 </a>
             </div>
         </div>

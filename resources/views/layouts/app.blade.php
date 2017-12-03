@@ -39,6 +39,7 @@
     <div class="col-md-1"></div>
 </div>
 <div class="wrapper row">
+    @yield('content-row')
     <div class="col-md-1"></div>
     <div class="col-md-10">
         @yield('content-md-10')

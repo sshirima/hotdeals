@@ -18,6 +18,7 @@ class RegionController extends AppBaseController
 
     public function __construct(RegionRepository $regionRepo)
     {
+        $this->middleware('auth:admin');
         $this->regionRepository = $regionRepo;
     }
 
@@ -33,7 +34,7 @@ class RegionController extends AppBaseController
         $regions = $this->regionRepository->all();
 
         return view('regions.index')
-            ->with('regions', $regions);
+            ->with(['regions' => $regions, 'admin' => auth()->user()]);
     }
 
     /**
@@ -43,7 +44,7 @@ class RegionController extends AppBaseController
      */
     public function create()
     {
-        return view('regions.create');
+        return view('regions.create')->with(['admin' => auth()->user()]);
     }
 
     /**
@@ -81,7 +82,7 @@ class RegionController extends AppBaseController
             return redirect(route('regions.index'));
         }
 
-        return view('regions.show')->with('region', $region);
+        return view('regions.show')->with(['region' => $region, 'admin' => auth()->user()]);
     }
 
     /**
@@ -101,7 +102,7 @@ class RegionController extends AppBaseController
             return redirect(route('regions.index'));
         }
 
-        return view('regions.edit')->with('region', $region);
+        return view('regions.edit')->with(['region' => $region, 'admin' => auth()->user()]);
     }
 
     /**

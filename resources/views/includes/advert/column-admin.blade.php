@@ -1,5 +1,5 @@
 <div class="col-md-4">
-    <a href="{{route('product-advert.show', [$advert->id])}}" class="advertLink">
+    <a href="{{route('admin.product-advert.show', [$advert->id])}}" class="advertLink">
         @include('includes.advert.image')
         @include('includes.advert.title')
         @include('includes.advert.brand')

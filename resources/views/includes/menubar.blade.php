@@ -1,4 +1,4 @@
-<ul class="nav nav-tabs">
+<ul class="nav nav-tabs main-menu-bar">
     <li class="active">
         <a href="/"><span class="glyphicon glyphicon-home"></span> Home</a></li>
     <li>

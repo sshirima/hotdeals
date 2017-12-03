@@ -28,6 +28,6 @@ class UserController extends Controller
             ->join('adverts', 'adverts.id', '=', 'products.advert_id')
             ->join('images', 'adverts.id', '=', 'images.advert_id')
             ->get();
-        return view('home')->with(['adverts' => $adverts]);
+        return view('user')->with(['adverts' => $adverts]);
     }
 }

@@ -19,6 +19,7 @@ class CategoryController extends AppBaseController
     public function __construct(CategoryRepository $categoryRepo)
     {
         $this->categoryRepository = $categoryRepo;
+        $this->middleware('auth:admin');
     }
 
     /**
@@ -33,7 +34,7 @@ class CategoryController extends AppBaseController
         $categories = $this->categoryRepository->all();
 
         return view('categories.index')
-            ->with('categories', $categories);
+            ->with(['categories' => $categories, 'admin' => auth()->user()]);
     }
 
     /**
@@ -43,7 +44,7 @@ class CategoryController extends AppBaseController
      */
     public function create()
     {
-        return view('categories.create');
+        return view('categories.create')->with(['admin' => auth()->user()]);
     }
 
     /**
@@ -81,7 +82,7 @@ class CategoryController extends AppBaseController
             return redirect(route('categories.index'));
         }
 
-        return view('categories.show')->with('category', $category);
+        return view('categories.show')->with(['category' => $category, 'admin' => auth()->user()]);
     }
 
     /**
@@ -101,7 +102,7 @@ class CategoryController extends AppBaseController
             return redirect(route('categories.index'));
         }
 
-        return view('categories.edit')->with('category', $category);
+        return view('categories.edit')->with(['category' => $category, 'admin' => auth()->user()]);
     }
 
     /**

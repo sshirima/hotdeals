@@ -5,7 +5,11 @@
 @endsection
 
 @section('header')
-    @include('includes.header_user')
+    @include('includes.headers.admin-dashboard')
+@endsection
+
+@section('menubar')
+    @include('includes.menus.admin-menubar')
 @endsection
 
 @section('content')

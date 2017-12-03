@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdateProductAdvertRequest;
+use App\Models\Advert;
 use App\Repositories\AdvertCategoryRepository;
 use App\Repositories\AdvertRepository;
 use App\Repositories\CategoryRepository;
@@ -19,6 +21,9 @@ class ProductAdvertController extends Controller
     private $advertsRepo;
     private $regionRepo;
     private $categoryRepo;
+    private $regions;
+    private $categories;
+    private $seller;
 
     public function __construct(AdvertRepository $advertRepository,
                                 RegionRepository $regionRepository,
@@ -32,10 +37,10 @@ class ProductAdvertController extends Controller
 
     public function create()
     {
-        $regions = $this->regionRepo->get();
-        $categories = $this->categoryRepo->get();
-        return view('product_advert.create')->with(['seller' => auth()->user(),
-            'regions' => $regions, 'categories' => $categories]);
+        $this->initialVariables();
+
+        return view('product_advert.create')->with(['seller' => $this->seller,
+            'regions' => $this->regions, 'categories' => $this->categories]);
     }
 
     /**
@@ -76,5 +81,80 @@ class ProductAdvertController extends Controller
         Flash::success('Advert saved successfully.');
 
         return redirect(route('seller.dashboard'));
+    }
+
+    /**
+     * @param $id
+     * @return $this
+     */
+    public function edit($id)
+    {
+
+        $this->initialVariables();
+
+        $advert = $this->advertsRepo->findWithoutFail($id);
+
+        $advert['product'] = $advert->product()->select(['name', 'brand', 'model', 'manufacturer', 'p_cost', 'c_cost'])->first();
+
+        $location = $advert->location()->select(['region_id'])->first();
+
+        $advert['categories'] = $advert->categories()->get();
+
+        $advert['region'] = $location->region()->first();
+
+        return view('product_advert.edit')->with([
+            'seller' => $this->seller,
+            'advert' => $advert,
+            'regions' => $this->regions,
+            'categories' => $this->categories
+        ]);
+    }
+
+    /**
+     * @param $id
+     * @param UpdateProductAdvertRequest $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function update($id, UpdateProductAdvertRequest $request)
+    {
+        $input = $request->all();
+
+        $advert = $this->advertsRepo->update($input, $id);
+
+        $product = $advert->product()->first()->update($input);
+
+        $advert->categories()->detach();
+        $advert->categories()->attach($input['category_id']);
+
+        $location = $advert->location()->first()->update($input);
+
+        if ($request->hasFile('img_name')) {
+            $images = $request->file('img_name');
+            $i = 0;
+            $previousImages = $advert->images()->get();
+            foreach ($images as $image) {
+                $filename = time() . $i . '.' . $image->getClientOriginalExtension();
+                $location = public_path('images/' . $filename);
+                Image::make($image)->resize(900, 600)->save($location);
+                $input['img_name'] = $filename;
+                $saveImageInfo = $advert->images()->create($input);
+                $i++;
+            }
+
+            //Deleting old images
+            foreach ($previousImages as $image) {
+                $image->forceDelete();
+                \Storage::delete($image->img_name);
+            }
+        }
+
+        return redirect(route('seller.product-advert.show', $id));
+    }
+
+    private function initialVariables()
+    {
+        $this->regions = $this->regionRepo->get();
+        $this->categories = $this->categoryRepo->get();
+        $this->seller = auth()->user();
     }
 }

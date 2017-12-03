@@ -15,11 +15,15 @@
 @section('content')
 
     <section class="row">
-        <button class="btn btn-default pull-right"><a href="{{route('product-advert.create')}}">Advertise product</a>
-        </button>
+        <a href="{{route('product-advert.create')}}">
+            <button class="btn btn-default pull-right">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Advertise product
+            </button>
+        </a>
     </section>
-    @component('components.who')
-    @endcomponent
+    {{--@component('components.who')--}}
+    {{--@endcomponent--}}
+    @include('flash::message')
     @include('includes.errors_message')
     @foreach($adverts->chunk(3) as $items)
         <div class="row">

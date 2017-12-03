@@ -34,6 +34,24 @@ class HomeController extends Controller
             $advert['img_name'] = $image->img_name;
             $advert['reg_name'] = $region->reg_name;
         }
-        return view('welcome')->with(['adverts' => $adverts]);
+        return view('home')->with(['adverts' => $adverts]);
+    }
+
+    public function productAdvertShow($id)
+    {
+        $advert = $this->advertsRepo->find($id);
+        if (empty($advert)) {
+            Flash::error('Advert not found');
+
+            return redirect(route('seller.dashboard'));
+        }
+        $advert['product'] = $advert->product()->first();
+        $location = $advert->location()->first();
+        $location['region'] = $location->region()->first();
+        $advert['images'] = $advert->images()->get();
+        $advert['categories'] = $advert->categories()->get();
+        $advert['location'] = $location;
+
+        return view('product_advert.show')->with(['advert' => $advert]);
     }
 }

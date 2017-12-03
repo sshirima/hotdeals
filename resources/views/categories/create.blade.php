@@ -5,13 +5,14 @@
 @endsection
 
 @section('header')
-    @include('includes.header_user')
+    @include('includes.headers.admin-dashboard')
+@endsection
+
+@section('menubar')
+    @include('includes.menus.admin-menubar')
 @endsection
 
 @section('content')
-    <div class="container">
-        <div class="col-md-4"></div>
-        <div class="col-md-4">
             <section class="content-header">
                 <h1>
                     Category
@@ -32,9 +33,8 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-4"></div>
-    </div>
+@endsection
 
-
+@section('footer')
+    @include('includes.footer_default')
 @endsection

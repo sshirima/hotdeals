@@ -2,16 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Product;
 use App\Repositories\AdvertRepository;
-use App\Repositories\ImageRepository;
 use App\Repositories\ProductRepository;
-use Illuminate\Support\Facades\DB;
 
 class SellerController extends Controller
 {
     private $advertsRepo;
-    private $productRepo;
 
     /**
      * SellerController constructor.
@@ -22,7 +18,6 @@ class SellerController extends Controller
     {
         $this->middleware('auth:seller');
         $this->advertsRepo = $advertRepository;
-        $this->productRepo = $productRepository;
     }
 
     /**

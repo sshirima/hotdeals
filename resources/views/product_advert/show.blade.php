@@ -5,7 +5,7 @@
 @endsection
 
 @section('header')
-    @include('includes.headers.seller-dashboard')
+    @include('includes.header_with_search')
 @endsection
 
 @section('menubar')
@@ -93,20 +93,14 @@
                 </div>
             </div>
             <div class="row" style="padding: 10px; ">
-                <a href="{{route('product-advert.edit',[$advert->id])}}">
-                    <div class="btn btn-primary" style="width: 100%">
-                        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit advert
+                <a href="#">
+                    <div class="btn btn-success" style="width: 100%">
+                        <i class="fa fa-address-card-o" aria-hidden="true"></i> Contact seller
                     </div>
                 </a>
 
             </div>
-            <div class="row" style="padding: 10px">
-                <a>
-                    <div class="btn btn-danger" style="width: 100%">
-                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Delete advert
-                    </div>
-                </a>
-            </div>
+
         </div>
     </div>
 

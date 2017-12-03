@@ -31,7 +31,6 @@
     <link rel="stylesheet" href="{{ URL::asset('css/header.css') }}">
     <link rel="stylesheet" href="{{ URL::asset('css/advert_row.css') }}">
     <link rel="stylesheet" href="{{ URL::asset('css/advert-details.css') }}">
-    <link rel="stylesheet" href="{{ URL::asset('css/admin-navbar.css') }}">
     <link rel="stylesheet" href="{{ URL::asset('css/login-form.css') }}">
 
 </head>

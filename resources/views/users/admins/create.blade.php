@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-    Categories
+    Create admin
 @endsection
 
 @section('header')
@@ -14,16 +14,21 @@
 
 @section('content')
     <section class="content-header">
-        <h1>
-            Category
-        </h1>
+        <h3>
+            Admins details
+        </h3>
     </section>
     <div class="content">
+        @include('adminlte-templates::common.errors')
         <div class="box box-primary">
+
             <div class="box-body">
-                <div class="row" style="padding-left: 20px">
-                    @include('categories.show_fields')
-                    <a href="{!! route('categories.index') !!}" class="btn btn-default">Back</a>
+                <div class="row">
+                    {!! Form::open(['route' => 'admin.register.submit']) !!}
+
+                    @include('users.admins.fields')
+
+                    {!! Form::close() !!}
                 </div>
             </div>
         </div>

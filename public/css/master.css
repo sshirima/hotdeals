@@ -23,7 +23,7 @@ html, body {
 /**
 Menu bar styling
  */
-ul li {
+ul.main-menu-bar li {
     width: 20%;
     text-align: center
 }
