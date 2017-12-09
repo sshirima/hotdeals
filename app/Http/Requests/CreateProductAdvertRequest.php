@@ -31,6 +31,7 @@ class CreateProductAdvertRequest extends FormRequest
             'brand' => 'required|max:50',
             'p_cost' => 'required|numeric',
             'c_cost' => 'required|numeric',
+            'img_name' => 'required'
         ];
     }
 }

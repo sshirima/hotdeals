@@ -17,15 +17,18 @@
 Route::get('/', 'HomeController@index');
 
 Auth::routes();
-
+Route::get('/advert/{id}', 'HomeController@productAdvertShow')->name('product-advert.show');
+Route::get('/adverts/category/{id}', 'HomeController@findByCategory')->name('adverts.by.category');
 
 /**
  * Normal user routes
  */
-Route::get('/home', 'UserController@index');
+Route::get('/home', 'UserController@index')->name('home');
 Route::get('/users/logout', 'Auth\LoginController@userLogout')->name('user.logout');
-Route::get('/advert/{id}', 'HomeController@productAdvertShow')->name('product-advert.show');
-
+Route::get('/user/advert/{id}', 'UserController@productAdvertShow')->name('user.product-advert.show');
+Route::post('/comment/store', 'CommentController@store')->name('comment.store');
+Route::post('/comment/update', 'CommentController@update')->name('comment.update');
+Route::post('/rate/store', 'RateController@store')->name('rate.store');
 
 /**
  * Admin routes

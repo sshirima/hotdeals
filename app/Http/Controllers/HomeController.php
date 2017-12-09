@@ -2,16 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\AdvertManager;
+use App\Models\Category;
 use App\Repositories\AdvertRepository;
-use Illuminate\Support\Facades\DB;
+use App\Repositories\CategoryRepository;
+use Laracasts\Flash\Flash;
 
 class HomeController extends Controller
 {
     private $advertsRepo;
+    private $categoryRepo;
 
-    public function __construct(AdvertRepository $advertRepository)
+    public function __construct(AdvertRepository $advertRepository, CategoryRepository $categoryRepository)
     {
         $this->advertsRepo = $advertRepository;
+        $this->categoryRepo = $categoryRepository;
     }
 
     /**
@@ -22,35 +27,37 @@ class HomeController extends Controller
     public function index()
     {
         $adverts = $this->advertsRepo->findWhere(['approved' => true], ['id', 'title', 'approved', 'expiredate', 'seller_id']);
-        foreach ($adverts as $advert) {
-            $product = $advert->product()->first();
-            $image = $advert->images()->first();
-            $location = $advert->location()->first();
-            $region = $location->region()->first();
 
-            $advert['brand'] = $product->brand;
-            $advert['p_cost'] = $product->p_cost;
-            $advert['c_cost'] = $product->c_cost;
-            $advert['img_name'] = $image->img_name;
-            $advert['reg_name'] = $region->reg_name;
-        }
-        return view('home')->with(['adverts' => $adverts]);
+        $adverts = AdvertManager::getAdvertInfo($adverts);
+
+        $categories = CategoryController::getPopularCategories();
+
+        return view('home')->with(['adverts' => $adverts, 'topCategories' => $categories]);
+    }
+
+    public function findByCategory($id)
+    {
+
+        $category = Category::find($id);
+
+        $adverts = $category->adverts;
+
+        $adverts = AdvertManager::getAdvertInfo($adverts);
+
+        return view('adverts.index_by_category')->with(['adverts' => $adverts]);
     }
 
     public function productAdvertShow($id)
     {
         $advert = $this->advertsRepo->find($id);
         if (empty($advert)) {
+
             Flash::error('Advert not found');
 
-            return redirect(route('seller.dashboard'));
+            return redirect(route('home'));
         }
-        $advert['product'] = $advert->product()->first();
-        $location = $advert->location()->first();
-        $location['region'] = $location->region()->first();
-        $advert['images'] = $advert->images()->get();
-        $advert['categories'] = $advert->categories()->get();
-        $advert['location'] = $location;
+
+        $advert = AdvertManager::getAdvertDetails($advert);
 
         return view('product_advert.show')->with(['advert' => $advert]);
     }

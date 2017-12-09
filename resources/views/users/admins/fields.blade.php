@@ -18,14 +18,19 @@
 
 <!-- Admin password Field -->
 <div class="form-group col-sm-12">
-    {!! Form::label('password', 'Admin password:') !!}
-    {!! Form::password('password', null, ['class' => 'form-control']) !!}
+    <div class="input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+        <input id="password" type="password" class="form-control" name="password" placeholder="Password">
+    </div>
 </div>
 
 <!-- Confirm password Field -->
 <div class="form-group col-sm-12">
-    {!! Form::label('password_confirmation', 'Confirm password:') !!}
-    {!! Form::password('password_confirmation', null, ['class' => 'form-control']) !!}
+    <div class="input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+        <input id="password_confirmation" type="password" class="form-control" name="password_confirmation"
+               placeholder="Confirm Password">
+    </div>
 </div>
 
 <!-- Submit Field -->

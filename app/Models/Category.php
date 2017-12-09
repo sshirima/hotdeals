@@ -39,5 +39,8 @@ class Category extends Model
         'cat_name' => 'string'
     ];
 
-
+    public function adverts()
+    {
+        return $this->belongsToMany('App\Models\Advert', 'advert_category', 'category_id', 'advert_id');
+    }
 }

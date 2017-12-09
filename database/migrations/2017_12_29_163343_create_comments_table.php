@@ -16,15 +16,16 @@ class CreateCommentsTable extends Migration
         Schema::create('comments', function (Blueprint $table) {
             $table->increments('com_id');
             $table->text('com_contents');
-            $table->unsignedInteger('fk_adv_id');
-            $table->unsignedInteger('fk_acc_id');
+            $table->unsignedInteger('advert_id');
+            $table->unsignedInteger('user_id');
             $table->timestamps();
+            $table->softDeletes();
 
-            $table->foreign('fk_adv_id')->references('adv_id')
+            $table->foreign('advert_id')->references('id')
                 ->on('adverts');
 
-            $table->foreign('fk_acc_id')->references('acc_id')
-                ->on('accounts');
+            $table->foreign('user_id')->references('id')
+                ->on('users');
         });
     }
 

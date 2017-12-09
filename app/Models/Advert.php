@@ -64,6 +64,16 @@ class Advert extends Model
         return $this->hasMany('App\Models\Image');
     }
 
+    public function comments()
+    {
+        return $this->hasMany('App\Models\Comment');
+    }
+
+    public function rates()
+    {
+        return $this->hasMany('App\Models\Rate');
+    }
+
     public function location()
     {
         return $this->hasOne('App\Models\Location');

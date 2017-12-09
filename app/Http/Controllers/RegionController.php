@@ -62,7 +62,7 @@ class RegionController extends AppBaseController
 
         Flash::success('Region saved successfully.');
 
-        return redirect(route('regions.index'));
+        return redirect(route('user.product-advert.show', $input['advert_id']));
     }
 
     /**

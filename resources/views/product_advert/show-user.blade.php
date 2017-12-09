@@ -5,11 +5,11 @@
 @endsection
 
 @section('header')
-    @include('includes.headers.admin-dashboard')
+    @include('includes.headers.user-dashboard')
 @endsection
 
 @section('menubar')
-    @include('includes.menus.admin-menubar')
+    @include('includes.menubar')
 @endsection
 
 @section('content')
@@ -44,10 +44,23 @@
 
                 </div>
             </div>
-            <div><h4>More details</h4></div>
-            <div>{!!$advert->description!!}</div>
-            <div><h4>Location</h4>
-                <p style="padding: 10px">{{$advert->location->region->reg_name}}</p></div>
+            @include('comments.index')
+            @include('comments.fields')
+            <div>@include('flash::message')</div>
+            <div class="panel-body">
+
+                <fieldset class="col-md-12">
+                    <legend>Advert details</legend>
+
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div>{!!$advert->description!!}</div>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <div class="clearfix"></div>
+            </div>
         </div>
         <div class="col-md-4">
             <div class="row" style="border-bottom: 1px solid;padding: 10px">
@@ -58,7 +71,20 @@
 
                     <p style="color: red">Sales end:<br>{{date_format(date_create($advert->expiredate),'M j')}}</p>
                 </div>
-
+                <div class="col-md-4">
+                    <div>
+                        <div style="font-size: 16px" class="glyphicon glyphicon-eye-open" aria-hidden="true"></div>
+                    </div>
+                    0 Viewers
+                </div>
+                <div class="col-md-4">
+                    <div style="font-size: 14px" class="glyphicon glyphicon-star-empty" aria-hidden="true"></div>
+                    <div style="font-size: 14px" class="glyphicon glyphicon-star-empty" aria-hidden="true"></div>
+                    <div style="font-size: 14px" class="glyphicon glyphicon-star-empty" aria-hidden="true"></div>
+                    <div style="font-size: 14px" class="glyphicon glyphicon-star-empty" aria-hidden="true"></div>
+                    <div style="font-size: 14px" class="glyphicon glyphicon-star-empty" aria-hidden="true"></div>
+                </div>
+                {{round($advert['rate'], 2).' Rate'}}
             </div>
             <div class="row" style="padding: 10px">
                 <div class="col-md-6 ">
@@ -69,10 +95,28 @@
                          style="font-size: 30px;">{{round(($advert->product->p_cost-$advert->product->c_cost)/$advert->product->p_cost*100).'%'}}</div>
                 </div>
             </div>
+            <div class="panel-body">
+
+                <fieldset class="col-md-12">
+                    <legend>Location</legend>
+
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div>{{$advert->location->region->reg_name}}</div>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <div class="clearfix"></div>
+            </div>
+            @include('rates.index')
             <div class="row" style="padding: 10px; ">
-                <a href="{{route('advert.approve', [$advert->id])}}">
-                    <div class="btn btn-success" style="width: 100%">Approve</div>
+                <a href="#">
+                    <div class="btn btn-success" style="width: 100%">
+                        <i class="fa fa-address-card-o" aria-hidden="true"></i> Contact seller
+                    </div>
                 </a>
+
             </div>
         </div>
     </div>

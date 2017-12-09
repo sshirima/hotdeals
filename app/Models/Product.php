@@ -35,6 +35,7 @@ class Product extends Model
         'advert_id' => 'required'
     ];
     public $table = 'products';
+
     public $fillable = [
         'name',
         'brand',
