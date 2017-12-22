@@ -27,3 +27,8 @@ ul.main-menu-bar li {
     width: 20%;
     text-align: center
 }
+
+ul.seller-menu-bar li {
+    width: 50%;
+    text-align: center
+}

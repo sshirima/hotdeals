@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-    Admin | Home
+    Admin dashboard
 @endsection
 
 @section('header')
@@ -9,18 +9,11 @@
 @endsection
 
 @section('menubar')
-    @include('includes.menus.admin-menubar')
+    @include('includes.menus.menubar-admin')
 @endsection
 
 @section('content')
-    @include('flash::message')
-    @foreach($adverts->chunk(3) as $items)
-        <div class="row">
-            @foreach($items as $advert)
-                @include('includes.advert.column-admin')
-            @endforeach
-        </div>
-    @endforeach
+    {{$visitor}}
 @endsection
 
 @section('footer')

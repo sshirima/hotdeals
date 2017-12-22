@@ -20,14 +20,16 @@ class Category extends Model
      * @var array
      */
     public static $rules = [
-        'cat_name' => 'required|max:50'
+        'cat_name' => 'required|max:50',
+        'cat_type' => 'required'
     ];
     public $timestamps = false;
 
     public $table = 'categories';
 
     public $fillable = [
-        'cat_name'
+        'cat_name',
+        'adv_type'
     ];
     protected $dates = ['deleted_at'];
     /**
@@ -42,5 +44,10 @@ class Category extends Model
     public function adverts()
     {
         return $this->belongsToMany('App\Models\Advert', 'advert_category', 'category_id', 'advert_id');
+    }
+
+    public function subcategories()
+    {
+        return $this->belongsToMany('App\Models\Subcategory', 'category_subcategory', 'category_id', 'subcategory_id');
     }
 }

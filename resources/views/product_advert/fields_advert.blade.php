@@ -90,3 +90,7 @@
 <div class="form-group col-sm-12">
     <input type="hidden" name="seller_id" value="{{ $seller->id }}">
 </div>
+
+<div class="form-group col-sm-12">
+    <input type="hidden" name="srv_type" value="Product">
+</div>

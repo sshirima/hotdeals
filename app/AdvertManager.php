@@ -9,6 +9,7 @@
 namespace App;
 
 
+use App\Models\Comment;
 use Illuminate\Support\Facades\DB;
 
 class AdvertManager
@@ -49,6 +50,15 @@ class AdvertManager
         $advert['images'] = $advert->images()->get();
         $advert['categories'] = $advert->categories()->get();
         $advert['location'] = $location;
+        $advert['comments'] = $advert->comments()->get();
+
+        foreach ($advert['comments'] as $comment) {
+            $comment['posted_at'] = Comment::getTimeDifference(new \DateTime($comment->created_at));
+            $comment['user'] = $comment->user()->select(['first_name', 'last_name'])->first();
+        }
+
+        $advert['rate'] = $advert->rates()->avg('value');
+
         return $advert;
     }
 

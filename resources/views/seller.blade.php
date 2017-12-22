@@ -9,19 +9,24 @@
 @endsection
 
 @section('menubar')
-    @include('includes.menubar')
+    @include('includes.menus.menubar-seller')
 @endsection
 
 @section('content')
 
     <section class="row">
+        <a href="{{route('service-advert.create')}}">
+            <button class="btn btn-default pull-right">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Advertise service
+            </button>
+        </a>
         <a href="{{route('product-advert.create')}}">
             <button class="btn btn-default pull-right">
                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Advertise product
             </button>
         </a>
     </section>
-    {{--@component('components.who')--}}
+    {{--@component('options.who')--}}
     {{--@endcomponent--}}
     @include('flash::message')
     @include('includes.errors_message')

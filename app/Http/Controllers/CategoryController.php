@@ -154,15 +154,4 @@ class CategoryController extends AppBaseController
 
         return redirect(route('categories.index'));
     }
-
-    public static function getPopularCategories()
-    {
-        return DB::table('advert_category')
-            ->select('categories.id', 'categories.cat_name', DB::raw('COUNT(advert_category.category_id) as occurrences'))
-            ->join('categories', 'categories.id', '=', 'advert_category.category_id')
-            ->groupBy('categories.id', 'categories.cat_name')
-            ->orderBy('occurrences', 'DESC')
-            ->limit(10)
-            ->get();
-    }
 }

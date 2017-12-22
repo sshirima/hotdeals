@@ -4,20 +4,10 @@ namespace App\Http\Controllers;
 
 use App\AdvertManager;
 use App\Models\Category;
-use App\Repositories\AdvertRepository;
-use App\Repositories\CategoryRepository;
 use Laracasts\Flash\Flash;
 
 class HomeController extends Controller
 {
-    private $advertsRepo;
-    private $categoryRepo;
-
-    public function __construct(AdvertRepository $advertRepository, CategoryRepository $categoryRepository)
-    {
-        $this->advertsRepo = $advertRepository;
-        $this->categoryRepo = $categoryRepository;
-    }
 
     /**
      * Show the application dashboard.
@@ -26,13 +16,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $adverts = $this->advertsRepo->findWhere(['approved' => true], ['id', 'title', 'approved', 'expiredate', 'seller_id']);
-
-        $adverts = AdvertManager::getAdvertInfo($adverts);
-
-        $categories = CategoryController::getPopularCategories();
-
-        return view('home')->with(['adverts' => $adverts, 'topCategories' => $categories]);
+        return redirect(route('product-advert.show-all'));
     }
 
     public function findByCategory($id)

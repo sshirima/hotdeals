@@ -1,0 +1,119 @@
+@extends('layouts.master')
+
+@section('title')
+    Advert details
+@endsection
+
+@section('header')
+    @include('includes.headers.seller-dashboard')
+@endsection
+
+
+@section('content')
+
+    <div class="row">
+        <div class="col-md-8" style="border-right:1px solid">
+            <div><h3>{{$advert->title}}</h3></div>
+            <div>{{$advert->service->srv_brand}}</div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+
+                        <!-- Wrapper for slides -->
+                        <div class="carousel-inner">
+                            @for($i=0;$i<count($advert->images);$i++)
+                                <div style="width: 100%; height: 450px; padding: 5px"
+                                     class=" img-rounded item @if($i==0)active @endif">
+                                    <img src="{{ URL::asset('images/'.$advert->images[$i]->img_name) }}">
+                                </div>
+                            @endfor
+                        </div>
+                        <!-- Left and right controls -->
+                        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                            <span class="glyphicon glyphicon-chevron-left"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                            <span class="glyphicon glyphicon-chevron-right"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+
+                    </div>
+
+                </div>
+            </div>
+            <!-- Add comment Field -->
+            @include('comments.index')
+            <div class="panel-body">
+
+                <fieldset class="col-md-12">
+                    <legend>Advert details</legend>
+
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div>{!!$advert->description!!}</div>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <div class="clearfix"></div>
+            </div>
+            <div><h4>Location</h4>
+                <p style="padding: 10px">{{$advert->location->region->reg_name}}</p></div>
+        </div>
+        <div class="col-md-4">
+            <div class="row" style="border-bottom: 1px solid;padding: 10px">
+                <div class="col-md-4">
+                    <div>
+                        <div style="font-size: 16px" class="glyphicon glyphicon-time" aria-hidden="true"></div>
+                    </div>
+
+                    <p style="color: red">Sales end:<br>{{date_format(date_create($advert->expiredate),'M j')}}</p>
+                </div>
+                <div class="col-md-4">
+                    <div>
+                        <div style="font-size: 16px" class="glyphicon glyphicon-eye-open" aria-hidden="true"></div>
+                    </div>
+                    0 Viewers
+                </div>
+                <div class="col-md-4">
+                    <div style="font-size: 14px" class="glyphicon glyphicon-star-empty" aria-hidden="true"></div>
+                    <div style="font-size: 14px" class="glyphicon glyphicon-star-empty" aria-hidden="true"></div>
+                    <div style="font-size: 14px" class="glyphicon glyphicon-star-empty" aria-hidden="true"></div>
+                    <div style="font-size: 14px" class="glyphicon glyphicon-star-empty" aria-hidden="true"></div>
+                    <div style="font-size: 14px" class="glyphicon glyphicon-star-empty" aria-hidden="true"></div>
+                </div>
+                {{round($advert['rate'], 2).' Rate'}}
+            </div>
+            <div class="row" style="padding: 10px">
+                <div class="col-md-6 ">
+                    <del>{{'Tsh '. $advert->service->p_cost}}</del>
+                    <br><strong style="font-size: 20px"> {{'Tsh '. $advert->service->c_cost}}</strong></div>
+                <div class="col-md-5 col-md-offset-1">
+                    <div class="pull-right"
+                         style="font-size: 30px;">{{round(($advert->service->p_cost-$advert->service->c_cost)/$advert->service->p_cost*100).'%'}}</div>
+                </div>
+            </div>
+            <div class="row" style="padding: 10px; ">
+                <a href="{{route('service-advert.edit',[$advert->id])}}">
+                    <div class="btn btn-primary" style="width: 100%">
+                        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit advert
+                    </div>
+                </a>
+
+            </div>
+            <div class="row" style="padding: 10px">
+                <a>
+                    <div class="btn btn-danger" style="width: 100%">
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Delete advert
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+@endsection
+
+@section('footer')
+    @include('includes.footer_default')
+@endsection

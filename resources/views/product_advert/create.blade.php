@@ -22,10 +22,10 @@
                 <div class="row">
                     {!! Form::open(['route' => 'product-advert.store', 'files'=> true]) !!}
                     <div class="col-md-6">
-                        @include('product_advert.fields_advert')
+                        @include('addeditadverts.components.fields.advert')
                     </div>
                     <div class="col-md-6">
-                        @include('product_advert.fields_product')
+                        @include('addeditadverts.components.fields.product')
                     </div>
                     {!! Form::close() !!}
                 </div>

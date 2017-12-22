@@ -2,18 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\AdvertManager;
 use App\Http\Requests\UpdateProductAdvertRequest;
-use App\Models\Advert;
-use App\Repositories\AdvertCategoryRepository;
 use App\Repositories\AdvertRepository;
 use App\Repositories\CategoryRepository;
-use App\Repositories\ImageRepository;
-use App\Repositories\LocationRepository;
-use App\Repositories\ProductRepository;
 use App\Http\Requests\CreateProductAdvertRequest;
 use App\Repositories\RegionRepository;
 use Intervention\Image\Facades\Image;
-use Response;
 use Flash;
 
 class ProductAdvertController extends Controller
@@ -33,6 +28,32 @@ class ProductAdvertController extends Controller
         $this->advertsRepo = $advertRepository;
         $this->regionRepo = $regionRepository;
         $this->categoryRepo = $categoryRepository;
+    }
+
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        $seller = auth()->user();
+
+        $adverts = $this->advertsRepo->findWhere(['seller_id' => $seller->id, 'adv_type' => 'Product'], ['id', 'title', 'approved', 'expiredate', 'seller_id']);
+        foreach ($adverts as $advert) {
+            $product = $advert->product()->first();
+            $image = $advert->images()->first();
+            $location = $advert->location()->first();
+            $region = $location->region()->first();
+
+            $advert['brand'] = $product->brand;
+            $advert['p_cost'] = $product->p_cost;
+            $advert['c_cost'] = $product->c_cost;
+            $advert['img_name'] = $image->img_name;
+            $advert['reg_name'] = $region->reg_name;
+        }
+
+        return view('product_advert.index')->with(['seller' => $seller, 'adverts' => $adverts]);
     }
 
     public function create()
@@ -149,6 +170,77 @@ class ProductAdvertController extends Controller
         }
 
         return redirect(route('seller.product-advert.show', $id));
+    }
+
+    /**
+     * Display the specified Advert.
+     *
+     * @param  int $id
+     *
+     * @return Response
+     */
+    public function showSeller($id)
+    {
+
+        $advert = $this->advertsRepo->find($id);
+        if (empty($advert)) {
+            Flash::error('Advert not found');
+
+            return redirect(route('product-advert.index'));
+        }
+
+        $advert = AdvertManager::getAdvertDetails($advert);
+
+        return view('product_advert.show-seller')->with(['advert' => $advert, 'seller' => auth()->user()]);
+    }
+
+    /**
+     * @param $id
+     * @return $this|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function showUser($id)
+    {
+        $advert = $this->advertsRepo->find($id);
+
+        if (empty($advert)) {
+            Flash::error('Advert not found');
+
+            return redirect(route('seller.dashboard'));
+        }
+
+        $advert = AdvertManager::getAdvertDetails($advert);
+
+        return view('product_advert.show-user')->with(['advert' => $advert, 'user' => auth()->user()]);
+    }
+
+    public function showAdmin($id)
+    {
+
+        $advert = $this->advertsRepo->find($id);
+        if (empty($advert)) {
+            Flash::error('Advert not found');
+
+            return redirect(route('admin.dashboard'));
+        }
+
+        $advert = AdvertManager::getAdvertDetails($advert);
+
+        return view('product_advert.show-admin')->with(['advert' => $advert, 'admin' => auth()->user()]);
+    }
+
+    public function show($id)
+    {
+        $advert = $this->advertsRepo->find($id);
+        if (empty($advert)) {
+
+            Flash::error('Advert not found');
+
+            return redirect(route('home'));
+        }
+
+        $advert = AdvertManager::getAdvertDetails($advert);
+
+        return view('product_advert.show')->with(['advert' => $advert]);
     }
 
     private function initialVariables()

@@ -28,7 +28,7 @@
         </ul>
         @foreach($adverts->chunk(3) as $items)
             @foreach($items as $advert)
-                @include('includes.advert.column-home')
+                @include('includes.advert.products.column-home')
             @endforeach
         @endforeach
     </div>

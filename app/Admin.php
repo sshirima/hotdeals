@@ -27,4 +27,8 @@ class Admin extends Authenticatable
         'password', 'remember_token',
     ];
 
+    public function getIsAdminAttribute()
+    {
+        return true;
+    }
 }

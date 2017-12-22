@@ -15,8 +15,11 @@
 @section('content')
     <div class="row">
         <div class="col-md-8" style="border-right:1px solid">
+            <!-- Title Field -->
             <div><h3>{{$advert->title}}</h3></div>
+            <!-- Brand Field -->
             <div>{{$advert->product->brand}}</div>
+            <!-- Picture Fields -->
             <div class="row">
                 <div class="col-md-12">
                     <div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -44,9 +47,13 @@
 
                 </div>
             </div>
+            <!-- Add comment Field -->
             @include('comments.index')
+        <!-- Comment submit confirm -->
             @include('comments.fields')
+        <!-- Advert details field -->
             <div>@include('flash::message')</div>
+            <!-- Advert details field -->
             <div class="panel-body">
 
                 <fieldset class="col-md-12">

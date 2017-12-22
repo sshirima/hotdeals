@@ -37,7 +37,8 @@ class Advert extends Model
         'title',
         'description',
         'expiredate',
-        'seller_id'
+        'seller_id',
+        'adv_type'
     ];
     protected $dates = ['deleted_at'];
     /**
@@ -58,6 +59,12 @@ class Advert extends Model
     {
         return $this->hasOne(Product::class);
     }
+
+    public function service()
+    {
+        return $this->hasOne(Service::class);
+    }
+
 
     public function images()
     {

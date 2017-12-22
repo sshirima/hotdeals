@@ -8,6 +8,7 @@ use App\Repositories\AdvertRepository;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Laracasts\Flash\Flash;
+use PragmaRX\Tracker\Vendor\Laravel\Facade as tracker;
 
 class AdminController extends Controller
 {
@@ -33,43 +34,8 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $admin = auth()->user();
 
-        $adverts = $this->advertsRepo->findWhere(['approved' => false], ['id', 'title', 'approved', 'expiredate', 'seller_id']);
-
-        foreach ($adverts as $advert) {
-            $product = $advert->product()->first();
-            $image = $advert->images()->first();
-            $location = $advert->location()->first();
-            $region = $location->region()->first();
-
-            $advert['brand'] = $product->brand;
-            $advert['p_cost'] = $product->p_cost;
-            $advert['c_cost'] = $product->c_cost;
-            $advert['img_name'] = $image->img_name;
-            $advert['reg_name'] = $region->reg_name;
-        }
-
-        return view('admin')->with(['admin' => $admin, 'adverts' => $adverts]);
-    }
-
-    public function productAdvertShow($id)
-    {
-
-        $advert = $this->advertsRepo->find($id);
-        if (empty($advert)) {
-            Flash::error('Advert not found');
-
-            return redirect(route('admin.dashboard'));
-        }
-        $advert['product'] = $advert->product()->first();
-        $location = $advert->location()->first();
-        $location['region'] = $location->region()->first();
-        $advert['images'] = $advert->images()->get();
-        $advert['categories'] = $advert->categories()->get();
-        $advert['location'] = $location;
-
-        return view('product_advert.show-admin')->with(['advert' => $advert, 'admin' => auth()->user()]);
+        return view('admin')->with(['admin' => auth()->user()]);
     }
 
     public function approveAdvert($id)

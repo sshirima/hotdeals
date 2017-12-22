@@ -16,7 +16,7 @@
     @foreach($adverts->chunk(3) as $items)
         <div class="row">
             @foreach($items as $advert)
-                @include('includes.advert.column-user')
+                @include('includes.advert.products.column-user')
             @endforeach
         </div>
     @endforeach
