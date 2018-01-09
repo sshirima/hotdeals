@@ -13,7 +13,7 @@
 @endsection
 
 @section('content')
-    {{$visitor}}
+    
 @endsection
 
 @section('footer')
