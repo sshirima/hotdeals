@@ -25,11 +25,11 @@
         </ul>
         @foreach($adverts->chunk(3) as $items)
             @foreach($items as $advert)
-                @include('displayadverts.showall.components.admin-product-poster')
+                @include('displayadverts.showall.components.user-service-poster')
             @endforeach
         @endforeach
     </div>
-    @component('components.paginate',['adverts'=>$adverts])@endcomponent
+    @component('components.paginate',['objects'=>$adverts])@endcomponent
 @endsection
 
 @section('footer')

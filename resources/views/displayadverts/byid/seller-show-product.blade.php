@@ -1,11 +1,15 @@
 @extends('layouts.master')
 
 @section('title')
-    Advert details
+    Product advert details
 @endsection
 
 @section('header')
     @include('includes.headers.seller-dashboard')
+@endsection
+
+@section('menubar')
+    @include('includes.menus.menubar-seller')
 @endsection
 
 @section('content')
@@ -96,17 +100,14 @@
             </div>
             <div class="row" style="padding: 10px; ">
                 <div class="panel-body">
-
                     <fieldset class="col-md-12">
                         <legend>Location</legend>
-
                         <div class="panel panel-default">
                             <div class="panel-body">
                                 <div>{{$advert->location->region->reg_name}}</div>
                             </div>
                         </div>
                     </fieldset>
-
                     <div class="clearfix"></div>
                 </div>
                 <a href="{{route('product-advert.edit',[$advert->id])}}">
@@ -114,7 +115,6 @@
                         <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit advert
                     </div>
                 </a>
-
             </div>
             <div class="row" style="padding: 10px">
                 <a>

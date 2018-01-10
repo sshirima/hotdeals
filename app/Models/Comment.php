@@ -15,7 +15,7 @@ class Comment extends Model
      * @var array
      */
     public static $rules = [
-        'com_contents' => 'required|max:50',
+        'com_contents' => 'required',
         'advert_id' => 'required|numeric',
         'user_id' => 'required|numeric'
     ];

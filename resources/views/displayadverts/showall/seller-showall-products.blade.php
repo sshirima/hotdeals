@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-    Seller | Home
+    Products adverts
 @endsection
 
 @section('header')
@@ -17,7 +17,7 @@
         @include('flash::message')
         <br>
         @component('includes.menus.vertical-navs.nav-seller',
-                    ['label'=>'Add product advert',
+                    ['label'=>'New product advert',
                     'link'=>route('product-advert.create'),
                     'approved_advert_link'=>route('seller.product-advert.status',1),
                     'pending_advert_link'=>route('seller.product-advert.status',0)
@@ -31,7 +31,7 @@
 
         @endforeach
     </div>
-    @component('components.paginate',['adverts'=>$adverts])@endcomponent
+    @component('components.paginate',['objects'=>$adverts])@endcomponent
 @endsection
 
 @section('footer')

@@ -34,7 +34,7 @@ class SubCategoryController extends AppBaseController
     public function index(Request $request)
     {
         $this->subcategoryRepository->pushCriteria(new RequestCriteria($request));
-        $subcategories = $this->subcategoryRepository->all();
+        $subcategories = $this->subcategoryRepository->paginate(10);
 
         return view('subcategories.index')
             ->with(['subcategories' => $subcategories, 'admin' => auth()->user()]);

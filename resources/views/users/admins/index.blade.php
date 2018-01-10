@@ -1,7 +1,7 @@
-@extends('layouts.app')
+@extends('layouts.master')
 
 @section('title')
-    Users
+    Admin accounts
 @endsection
 
 @section('header')
@@ -12,18 +12,18 @@
     @include('includes.menus.menubar-admin')
 @endsection
 
-@section('content-row')
+@section('content')
     <div class="row">
         <div class="container">
             <div class="col-md-1"></div>
             <div class="col-md-10">
                 <section class="content-header">
-                    <h3 class="pull-left">Administrators</h3>
-                    <div class="pull-right">
-                        <a class="btn btn-primary pull-right" style="margin-top: -10px;margin-bottom: 5px"
-                           href="{{route('admin.register')}}"><i class="fa fa-user-plus" aria-hidden="true"></i> Add
+                    <h2 class="pull-left">Registered Admin accounts</h2>
+                    <h2 class="pull-right">
+                        <a class="btn btn-primary pull-right"
+                           href="{{route('admin.register')}}"><i class="glyphicon glyphicon-user" aria-hidden="true"></i> Add
                             admin account</a>
-                    </div>
+                    </h2>
                 </section>
                 <div class="content">
                     <div class="clearfix"></div>

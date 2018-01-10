@@ -1,7 +1,12 @@
 @extends('layouts.master')
 
 @section('title')
-    Seller | Home
+    Seller dashboard
+@endsection
+
+@section('custom-import')
+    <!-- Custom master styling cdn -->
+    <link rel="stylesheet" href="{{ URL::asset('add-edit-advert/css.css') }}">
 @endsection
 
 @section('header')
@@ -14,29 +19,6 @@
 
 @section('content')
 
-    <section class="row">
-        <a href="{{route('service-advert.create')}}">
-            <button class="btn btn-default pull-right">
-                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Advertise service
-            </button>
-        </a>
-        <a href="{{route('product-advert.create')}}">
-            <button class="btn btn-default pull-right">
-                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Advertise product
-            </button>
-        </a>
-    </section>
-    {{--@component('options.who')--}}
-    {{--@endcomponent--}}
-    @include('flash::message')
-    @include('includes.errors_message')
-    @foreach($adverts->chunk(3) as $items)
-        <div class="row">
-            @foreach($items as $advert)
-                @include('includes.advert.column-seller')
-            @endforeach
-        </div>
-    @endforeach
 @endsection
 
 @section('footer')

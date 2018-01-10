@@ -53,13 +53,7 @@ class ShowProductController extends ShowAdvertBaseController
 
     public function showByCategory($category_id)
     {
-        $category = Category::find($category_id);
-
-        $adverts = $category->adverts()->select(ShowAdvertBaseController::$return_advert_column)
-            ->where(['approved' => true, 'adv_type' => 'Product'])
-            ->orderBy('id', 'desc')->paginate(5);
-
-        $adverts = $this->getProductAdvertInfo($adverts);
+        $adverts = $this->productAdvertByCategory($category_id);
 
         return view('displayadverts.bycategory.show-products')->with(['adverts' => $adverts]);
     }

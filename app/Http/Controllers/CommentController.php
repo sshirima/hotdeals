@@ -38,9 +38,10 @@ class CommentController extends Controller
 
         $comment = $this->commentRepository->create($input);
 
-        Flash::success('Comment has been saved successfully.');
+        Flash::success('Comment has been saved successfully');
 
-        return redirect(route('user.product-advert.show', $input['advert_id']))->with(['comment' => $comment]);
+        //return redirect(route('user.product-advert.show', $input['advert_id']))->with(['comment' => $comment]);
+        return redirect()->back();
     }
 
     public function edit($id)

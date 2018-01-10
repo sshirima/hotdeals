@@ -12,36 +12,45 @@
     <!-- Chosen -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.4.2/chosen.jquery.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.4.2/chosen.css">
+
+    <!-- Jave script for this page -->
+    <script src="{{ URL::asset('add-edit-advert/js.js') }}"></script>
+
+    <!-- Custom master styling cdn -->
+    <link rel="stylesheet" href="{{ URL::asset('add-edit-advert/css.css') }}">
 @endsection
 
 @section('header')
     @include('includes.headers.seller-dashboard')
 @endsection
 
+@section('menubar')
+    @include('includes.menus.menubar-seller')
+@endsection
+
 @section('content')
-    <script type="text/javascript">
-        $(function () {
-            $(".chosen-select").chosen();
-        });
-    </script>
-
-    <section class="content-header">
-        <h2>
-            Edit product advert
-        </h2>
-    </section>
-    <div class="content">
+    <div class="content container">
         @include('adminlte-templates::common.errors')
+        <h2>Edit product advert form</h2>
         <div class="box box-primary">
-
             <div class="box-body">
                 <div class="row">
                     {!! Form::open(['route' => ['product-advert.update', $advert->id], 'files'=> true]) !!}
                     <div class="col-md-6">
-                        @include('addeditadverts.components.fields.advert')
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Advert details</div>
+                            <div class="panel-body">
+                                @include('addeditadverts.components.fields.advert')
+                            </div>
+                        </div>
                     </div>
                     <div class="col-md-6">
-                        @include('addeditadverts.components.fields.product')
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Product details</div>
+                            <div class="panel-body">
+                                @include('addeditadverts.components.fields.product')
+                            </div>
+                        </div>
                     </div>
                     {!! Form::close() !!}
                 </div>

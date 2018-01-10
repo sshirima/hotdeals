@@ -42,14 +42,16 @@ class RateController extends Controller
             //Update the rating
             $this->rateRepository->update($input, $rate->id);
 
-            return redirect(route('user.product-advert.show', $input['advert_id']));
+            //return redirect(route('user.product-advert.show', $input['advert_id']));
+            return redirect()->back();
         }
 
         $this->rateRepository->create($input);
 
         Flash::success('Rated...');
 
-        return redirect(route('user.product-advert.show', $input['advert_id']));
+        //return redirect(route('user.product-advert.show', $input['advert_id']));
+        return redirect()->back();
 
     }
 }

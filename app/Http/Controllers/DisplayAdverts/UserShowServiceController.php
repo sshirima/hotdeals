@@ -29,7 +29,7 @@ class UserShowServiceController extends ShowAdvertBaseController
 
         $this->getServiceAdvertInfo($adverts);
 
-        $categories = parent::getTopCategories('Product', 10);
+        $categories = parent::getTopCategories('Service', 10);
 
         return view('displayadverts.showall.user-showall-services')->with(['adverts' => $adverts, 'user' => auth()->user(), 'topCategories' => $categories]);
     }
@@ -47,5 +47,12 @@ class UserShowServiceController extends ShowAdvertBaseController
         $advert = parent::getAdvertDetails($advert);
 
         return view('displayadverts.byid.user-show-service')->with(['advert' => $advert, 'user' => auth()->user()]);
+    }
+
+    public function showByCategory($category_id)
+    {
+        $adverts = $this->serviceAdvertByCategory($category_id);
+
+        return view('displayadverts.bycategory.user-show-services')->with(['adverts' => $adverts]);
     }
 }

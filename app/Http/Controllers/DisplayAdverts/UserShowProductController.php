@@ -54,4 +54,11 @@ class UserShowProductController extends ShowAdvertBaseController
         return view('displayadverts.byid.user-show-product')->with(['advert' => $advert, 'user' => auth()->user()]);
     }
 
+    public function showByCategory($category_id)
+    {
+        $adverts = $this->productAdvertByCategory($category_id);
+
+        return view('displayadverts.bycategory.user-show-products')->with(['adverts' => $adverts]);
+    }
+
 }

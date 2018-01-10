@@ -1,7 +1,7 @@
-@extends('layouts.app')
+@extends('layouts.master')
 
 @section('title')
-    Users
+    Seller users
 @endsection
 
 @section('header')
@@ -12,16 +12,16 @@
     @include('includes.menus.menubar-admin')
 @endsection
 
-@section('content-row')
+@section('content')
     <div class="row">
         <div class="container">
             <div class="col-md-1"></div>
             <div class="col-md-10">
                 <section class="content-header">
-                    <h1 class="pull-left">Seller accounts</h1>
-                    <h4 class="pull-right">
+                    <h2 class="pull-left">Seller accounts</h2>
+                    <h2 class="pull-right">
                         {{count($sellers)}} accounts
-                    </h4>
+                    </h2>
                 </section>
                 <div class="content">
                     <div class="clearfix"></div>

@@ -10,6 +10,7 @@ namespace App\Http\Controllers\DisplayAdverts;
 
 use App\Http\Controllers\Controller;
 use App\Models\Advert;
+use App\Models\Category;
 use App\Models\Comment;
 use Illuminate\Support\Facades\DB;
 
@@ -95,6 +96,32 @@ class ShowAdvertBaseController extends Controller
         foreach ($adverts as $advert) {
             $this->getAdvertBasicInfo($advert, $advert->service()->first());
         }
+        return $adverts;
+    }
+
+    public function serviceAdvertByCategory($category_id)
+    {
+        $category = Category::find($category_id);
+
+        $adverts = $category->adverts()->select(ShowAdvertBaseController::$return_advert_column)
+            ->where(['approved' => true, 'adv_type' => 'Service'])
+            ->orderBy('id', 'desc')->paginate(5);;
+
+        $this->getServiceAdvertInfo($adverts);
+
+        return $adverts;
+    }
+
+    public function productAdvertByCategory($category_id)
+    {
+        $category = Category::find($category_id);
+
+        $adverts = $category->adverts()->select(ShowAdvertBaseController::$return_advert_column)
+            ->where(['approved' => true, 'adv_type' => 'Product'])
+            ->orderBy('id', 'desc')->paginate(5);
+
+        $adverts = $this->getProductAdvertInfo($adverts);
+
         return $adverts;
     }
 }

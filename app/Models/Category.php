@@ -29,7 +29,7 @@ class Category extends Model
 
     public $fillable = [
         'cat_name',
-        'adv_type'
+        'cat_type'
     ];
     protected $dates = ['deleted_at'];
     /**
@@ -38,7 +38,8 @@ class Category extends Model
      * @var array
      */
     protected $casts = [
-        'cat_name' => 'string'
+        'cat_name' => 'string',
+        'cat_type' =>'string'
     ];
 
     public function adverts()

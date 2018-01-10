@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-    User | Home
+    Service adverts
 @endsection
 
 @section('header')
@@ -16,7 +16,7 @@
     <div class="container">
         @component('includes.menus.vertical-navs.nav-user',
        ['topCategories'=>$topCategories,
-       'link_category'=>'services.category.show'])
+       'link_category'=>'user.services.category.show'])
         @endcomponent
         @foreach($adverts->chunk(3) as $items)
             @foreach($items as $advert)
@@ -24,7 +24,7 @@
             @endforeach
         @endforeach
     </div>
-    @component('components.paginate',['adverts'=>$adverts])@endcomponent
+    @component('components.paginate',['objects'=>$adverts])@endcomponent
 @endsection
 
 @section('footer')

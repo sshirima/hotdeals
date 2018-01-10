@@ -45,11 +45,11 @@
         @yield('content-md-10')
         <div class="row">
             <div class="col-md-4"></div>
-            <div class="col-md-4">
-                @yield('content')</div>
+            <div class="col-md-4">@yield('content')</div>
         </div>
         <div class="col-md-4"></div>
     </div>
+    @yield('paginate-bar')
     <div class="col-md-1"></div>
 </div>
 <div class="push"></div>

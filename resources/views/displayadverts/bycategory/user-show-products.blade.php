@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-    Adverts
+    Products adverts
 @endsection
 
 @section('header')
@@ -9,7 +9,7 @@
 @endsection
 
 @section('menubar')
-    @include('includes.menus.menubar-default')
+    @include('includes.menus.menubar-user')
 @endsection
 
 @section('content')

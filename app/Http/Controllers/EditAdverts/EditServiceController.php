@@ -11,6 +11,8 @@ namespace App\Http\Controllers\EditAdverts;
 
 use App\Http\Requests\UpdateProductAdvertRequest;
 use App\Http\Requests\UpdateServiceAdvertRequest;
+use App\Models\Category;
+use App\Models\SubCategory;
 use App\Repositories\AdvertRepository;
 use App\Repositories\CategoryRepository;
 use App\Repositories\RegionRepository;
@@ -48,7 +50,8 @@ class EditServiceController extends EditAdvertBaseController
             'seller' => auth()->user(),
             'advert' => $advert,
             'regions' => $this->regionRepo->get(),
-            'categories' => $this->categoryRepo->get()
+            'categories' => Category::where('cat_type','like','Service')->get(),
+            'subcategories' => SubCategory::all()
         ]);
     }
 

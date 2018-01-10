@@ -1,11 +1,15 @@
 @extends('layouts.master')
 
 @section('title')
-    Advert details
+    Service advert details
 @endsection
 
 @section('header')
     @include('includes.headers.user-dashboard')
+@endsection
+
+@section('menubar')
+    @include('includes.menus.menubar-user')
 @endsection
 
 @section('content')
@@ -14,7 +18,7 @@
             <!-- Title Field -->
             <div><h3>{{$advert->title}}</h3></div>
             <!-- Brand Field -->
-            <div>{{$advert->product->brand}}</div>
+            <div>{{$advert->service->brand}}</div>
             <!-- Picture Fields -->
             <div class="row">
                 <div class="col-md-12">
@@ -91,11 +95,11 @@
             </div>
             <div class="row" style="padding: 10px">
                 <div class="col-md-6 ">
-                    <del>{{'Tsh '. $advert->product->p_cost}}</del>
-                    <br><strong style="font-size: 20px"> {{'Tsh '. $advert->product->c_cost}}</strong></div>
+                    <del>{{'Tsh '. $advert->service->p_cost}}</del>
+                    <br><strong style="font-size: 20px"> {{'Tsh '. $advert->service->c_cost}}</strong></div>
                 <div class="col-md-5 col-md-offset-1">
                     <div class="pull-right"
-                         style="font-size: 30px;">{{round(($advert->product->p_cost-$advert->product->c_cost)/$advert->product->p_cost*100).'%'}}</div>
+                         style="font-size: 30px;">{{round(($advert->service->p_cost-$advert->service->c_cost)/$advert->service->p_cost*100).'%'}}</div>
                 </div>
             </div>
             <div class="panel-body">

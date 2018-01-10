@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-    Adverts
+    Service adverts
 @endsection
 
 @section('header')
@@ -9,7 +9,7 @@
 @endsection
 
 @section('menubar')
-    @include('includes.menus.menubar-default')
+    @include('includes.menus.menubar-user')
 @endsection
 
 @section('content')
@@ -25,7 +25,7 @@
         </ul>
         @foreach($adverts->chunk(3) as $items)
             @foreach($items as $advert)
-                @include('displayadverts.showall.components.user-product-poster')
+                @include('displayadverts.showall.components.user-service-poster')
             @endforeach
         @endforeach
     </div>

@@ -1,6 +1,6 @@
 <!-- Product name field-->
 <div class="form-group col-sm-6">
-    {!! Form::label('srv_name', 'Product name') !!}
+    {!! Form::label('srv_name', 'Service name') !!}
     @if (!empty($advert))
         {!! Form::text('srv_name', $advert->service->srv_name, ['class' => 'form-control']) !!}
     @else {!! Form::text('srv_name', null, ['class' => 'form-control']) !!} @endif
@@ -9,7 +9,7 @@
 
 <!-- Brand Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('srv_brand', 'Brand') !!}
+    {!! Form::label('srv_brand', 'Service brand') !!}
     @if (!empty($advert))
         {!! Form::text('srv_brand', $advert->service->srv_brand, ['class' => 'form-control']) !!}
     @else {!! Form::text('srv_brand', null, ['class' => 'form-control']) !!} @endif

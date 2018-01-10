@@ -8,6 +8,10 @@
     @include('includes.headers.admin-dashboard')
 @endsection
 
+@section('menubar')
+    @include('includes.menus.menubar-admin')
+@endsection
+
 @section('content')
     <div class="row">
         <div class="col-md-8" style="border-right:1px solid">

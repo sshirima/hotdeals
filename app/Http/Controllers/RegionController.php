@@ -31,7 +31,7 @@ class RegionController extends AppBaseController
     public function index(Request $request)
     {
         $this->regionRepository->pushCriteria(new RequestCriteria($request));
-        $regions = $this->regionRepository->all();
+        $regions = $this->regionRepository->paginate(10);
 
         return view('regions.index')
             ->with(['regions' => $regions, 'admin' => auth()->user()]);

@@ -1,11 +1,12 @@
 <!doctype html>
 <html lang="{{ config('app.locale') }}">
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- pass through the CSRF (cross-site request forgery) token -->
-<meta name="csrf-token" content="<?php echo csrf_token() ?>"/>
 <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- pass through the CSRF (cross-site request forgery) token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}"/>
+
     <title>@yield('title')</title>
     <!-- Bootstrap CDN -->
     <link href="{{ URL::asset('bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
@@ -22,8 +23,6 @@
     <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
     <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
 
-@yield('custom-import')
-
     <!-- Custom master styling cdn -->
     <link rel="stylesheet" href="{{ URL::asset('css/master.css') }}">
     <link rel="stylesheet" href="{{ URL::asset('css/header.css') }}">
@@ -31,6 +30,8 @@
     <link rel="stylesheet" href="{{ URL::asset('css/advert-details.css') }}">
     <link rel="stylesheet" href="{{ URL::asset('css/comments.css') }}">
     <link rel="stylesheet" href="{{ URL::asset('css/login-form.css') }}">
+
+    @yield('custom-import')
 
 </head>
 
@@ -50,7 +51,10 @@
 
 <div class="wrapper row">
     <div class="col-md-1"></div>
-    <div class="col-md-10">@yield('content')</div>
+    <div class="col-md-10">
+        @yield('content')
+        @yield('paginate-bar')
+    </div>
     <div class="col-md-1"></div>
 </div>
 <div class="push"></div>

@@ -1,3 +1,3 @@
 <div class="text-center">
-    {!! $adverts->links(); !!}
+    {!! $objects->links(); !!}
 </div>

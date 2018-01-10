@@ -26,6 +26,6 @@ class SellerController extends Controller
      */
     public function index()
     {
-        return redirect(route('seller.product-advert.show-all'));
+        return view('seller')->with(['seller' => auth()->user()]);;
     }
 }

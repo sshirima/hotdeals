@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-    Create advert
+    Create product advert
 @endsection
 
 @section('custom-import')
@@ -24,25 +24,33 @@
     @include('includes.headers.seller-dashboard')
 @endsection
 
+@section('menubar')
+    @include('includes.menus.menubar-seller')
+@endsection
+
 @section('content')
-
-    <section class="content-header">
-        <h2>
-            Create new product advert
-        </h2>
-    </section>
-    <div class="content">
+    <div class="content container">
         @include('adminlte-templates::common.errors')
+        <h2>Create product advert form</h2>
         <div class="box box-primary">
-
             <div class="box-body">
                 <div class="row">
                     {!! Form::open(['route' => 'product-advert.store', 'files'=> true]) !!}
                     <div class="col-md-6">
-                        @include('addeditadverts.components.fields.advert')
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Advert details</div>
+                            <div class="panel-body">
+                                @include('addeditadverts.components.fields.advert')
+                            </div>
+                        </div>
                     </div>
                     <div class="col-md-6">
-                        @include('addeditadverts.components.fields.product')
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Product details</div>
+                            <div class="panel-body">
+                                @include('addeditadverts.components.fields.product')
+                            </div>
+                        </div>
                     </div>
                     {!! Form::close() !!}
                 </div>

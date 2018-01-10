@@ -1,20 +1,26 @@
 @extends('layouts.master')
 
 @section('title')
-    Advert details
+    Service advert details
 @endsection
 
 @section('header')
     @include('includes.headers.seller-dashboard')
 @endsection
 
+@section('menubar')
+    @include('includes.menus.menubar-seller')
+@endsection
 
 @section('content')
 
     <div class="row">
         <div class="col-md-8" style="border-right:1px solid">
+            <!-- Title Field -->
             <div><h3>{{$advert->title}}</h3></div>
+            <!-- Brand Field -->
             <div>{{$advert->service->srv_brand}}</div>
+            <!-- Picture Fields -->
             <div class="row">
                 <div class="col-md-12">
                     <div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -58,8 +64,6 @@
 
                 <div class="clearfix"></div>
             </div>
-            <div><h4>Location</h4>
-                <p style="padding: 10px">{{$advert->location->region->reg_name}}</p></div>
         </div>
         <div class="col-md-4">
             <div class="row" style="border-bottom: 1px solid;padding: 10px">
@@ -93,6 +97,17 @@
                     <div class="pull-right"
                          style="font-size: 30px;">{{round(($advert->service->p_cost-$advert->service->c_cost)/$advert->service->p_cost*100).'%'}}</div>
                 </div>
+            </div>
+            <div class="panel-body">
+                <fieldset class="col-md-12">
+                    <legend>Location</legend>
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div>{{$advert->location->region->reg_name}}</div>
+                        </div>
+                    </div>
+                </fieldset>
+                <div class="clearfix"></div>
             </div>
             <div class="row" style="padding: 10px; ">
                 <a href="{{route('service-advert.edit',[$advert->id])}}">

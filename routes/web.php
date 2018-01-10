@@ -40,6 +40,9 @@ Route::prefix('user')->group(function () {
     Route::get('advert/product/{id}', 'DisplayAdverts\UserShowProductController@showById')->name('user.product-advert.show');
     Route::get('advert/service/{id}', 'DisplayAdverts\UserShowServiceController@showById')->name('user.service-advert.show');
 
+    Route::get('advert/products/category/{id}', 'DisplayAdverts\UserShowProductController@showByCategory')->name('user.products.category.show');
+    Route::get('advert/services/category/{id}', 'DisplayAdverts\UserShowServiceController@showByCategory')->name('user.services.category.show');
+
     Route::post('/comment/store', 'CommentController@store')->name('comment.store');
     Route::post('/comment/update', 'CommentController@update')->name('comment.update');
 

@@ -10,6 +10,8 @@ namespace App\Http\Controllers\AddAdverts;
 
 
 use App\Http\Requests\CreateServiceAdvertRequest;
+use App\Models\Category;
+use App\Models\SubCategory;
 use App\Repositories\AdvertRepository;
 use App\Repositories\CategoryRepository;
 use App\Repositories\RegionRepository;
@@ -45,7 +47,9 @@ class AddServiceController extends AddAdvertBaseController
     {
 
         return view('addeditadverts.service-create')->with(['seller' => auth()->user(),
-            'regions' => $this->regionRepo->get(), 'categories' => $this->categoryRepo->get()]);
+            'regions' => $this->regionRepo->get(),
+            'categories' => Category::where('cat_type','like','Service')->get(),
+            'subcategories' => SubCategory::all()]);
     }
 
     /**

@@ -52,12 +52,7 @@ class ShowServiceController extends ShowAdvertBaseController
 
     public function showByCategory($category_id)
     {
-        $category = Category::find($category_id);
-
-        $adverts = $category->adverts()->select(ShowAdvertBaseController::$return_advert_column)
-            ->where(['approved' => true, 'adv_type' => 'Service'])->get();
-
-        $this->getServiceAdvertInfo($adverts);
+        $adverts = $this->serviceAdvertByCategory($category_id);
 
         return view('displayadverts.bycategory.show-services')->with(['adverts' => $adverts]);
     }

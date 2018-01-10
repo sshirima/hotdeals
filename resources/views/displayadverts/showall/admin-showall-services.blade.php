@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-    Admin | Home
+    Approved service adverts
 @endsection
 
 @section('header')
@@ -16,7 +16,7 @@
     <div class="container">
         @include('flash::message')
         @component('includes.menus.vertical-navs.nav-admin',
-                    ['label_approvedbyme'=>'Service ads approved',
+                    ['label_approvedbyme'=>'My service approvals',
                     'link_approvedbyme'=>route('admin.service-advert.my-approval',$admin->first_name)
                     ])
         @endcomponent
@@ -26,7 +26,7 @@
             @endforeach
         @endforeach
     </div>
-    @component('components.paginate',['adverts'=>$adverts])@endcomponent
+    @component('components.paginate',['objects'=>$adverts])@endcomponent
 @endsection
 
 @section('footer')

@@ -1,11 +1,15 @@
 @extends('layouts.master')
 
 @section('title')
-    Advert details
+    Product advert details
 @endsection
 
 @section('header')
     @include('includes.headers.user-dashboard')
+@endsection
+
+@section('menubar')
+    @include('includes.menus.menubar-user')
 @endsection
 
 @section('content')

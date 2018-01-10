@@ -3,14 +3,14 @@
         <ul class="nav navbar-nav">
             <li class="{{Request::is('admin') ? 'active' : ''}}">
                 <a href="{{route('admin.dashboard')}}">
-                    <span class="glyphicon glyphicon-dashboard" aria-hidden="true"></span> Dashboard
+                    <span class="glyphicon glyphicon-dashboard" aria-hidden="true"></span> Admin dashboard
                 </a>
             </li>
         </ul>
         <ul class="nav navbar-nav">
             <li class="{{Request::is('admin/advert/product*') ? 'active' : ''}}">
                 <a href="{{route('admin.product-advert.show-all')}}">
-                    <span class="glyphicon glyphicon-dashboard" aria-hidden="true"></span> Product adverts
+                    <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span> Product adverts
                 </a>
             </li>
         </ul>
@@ -18,7 +18,7 @@
         <ul class="nav navbar-nav">
             <li class="{{Request::is('admin/advert/service*') ? 'active' : ''}}">
                 <a href="{{route('admin.service-advert.show-all')}}">
-                    <span class="glyphicon glyphicon-dashboard" aria-hidden="true"></span> Service adverts
+                    <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span> Service adverts
                 </a>
             </li>
         </ul>
@@ -55,9 +55,13 @@
                     <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Users <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a href="{{route('accounts.users.index')}}">Online users</a></li>
-                    <li><a href="{{route('accounts.sellers.index')}}">Sellers</a></li>
-                    <li><a href="{{route('accounts.admins.index')}}">Admins</a></li>
+                    <li><a href="{{route('accounts.admins.index')}}">
+                            <i class="fa fa-user" aria-hidden="true"></i> Admins</a></li>
+                    <li><a href="{{route('accounts.sellers.index')}}">
+                            <i class="fa fa-user-o" aria-hidden="true"></i> Sellers</a></li>
+                    <li><a href="{{route('accounts.users.index')}}">
+                            <i class="fa fa-user-circle-o" aria-hidden="true"></i> Online users</a>
+                    </li>
                 </ul>
             </li>
         </ul>

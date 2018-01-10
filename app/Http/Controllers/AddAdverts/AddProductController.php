@@ -11,6 +11,7 @@ namespace App\Http\Controllers\AddAdverts;
 
 use App\Http\Requests\CreateProductAdvertRequest;
 use App\Models\Category;
+use App\Models\SubCategory;
 use App\Repositories\AdvertRepository;
 use App\Repositories\CategoryRepository;
 use App\Repositories\RegionRepository;
@@ -50,8 +51,8 @@ class AddProductController extends AddAdvertBaseController
 
         return view('addeditadverts.product-create')->with(['seller' => auth()->user(),
             'regions' => $this->regionRepo->get(),
-            'categories' => $this->categoryRepo->findWhere(['cat_type' => 'Product']),
-            'subcategories' => $this->subCategoryRepo->get()]);
+            'categories' => Category::where('cat_type','like','Product')->get(),
+            'subcategories' => SubCategory::all()]);
     }
 
     /**

@@ -49,7 +49,7 @@ class AdminShowProductController extends ShowAdvertBaseController
         $admin = auth()->user();
 
         $adverts = $this->getAdverts(parent::$return_advert_column,
-            ['approved' => false, 'adv_type' => 'Product', 'approved_by' => $admin->email], parent::$PAGE_SIZE);
+            ['approved' => true, 'adv_type' => 'Product', 'approved_by' => $admin->email], parent::$PAGE_SIZE);
 
         $adverts = $this->getProductAdvertInfo($adverts);
 
