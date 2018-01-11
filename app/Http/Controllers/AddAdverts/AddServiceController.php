@@ -11,32 +11,23 @@ namespace App\Http\Controllers\AddAdverts;
 
 use App\Http\Requests\CreateServiceAdvertRequest;
 use App\Models\Category;
+use App\Models\Region;
 use App\Models\SubCategory;
 use App\Repositories\AdvertRepository;
-use App\Repositories\CategoryRepository;
-use App\Repositories\RegionRepository;
-use Intervention\Image\Facades\Image;
 use Laracasts\Flash\Flash;
 
 class AddServiceController extends AddAdvertBaseController
 {
     private $advertsRepo;
-    private $regionRepo;
-    private $categoryRepo;
 
     /**
-     * AddProductController constructor.
+     * AddServiceController constructor.
      * @param AdvertRepository $advertRepository
-     * @param RegionRepository $regionRepository
-     * @param CategoryRepository $categoryRepository
      */
-    public function __construct(AdvertRepository $advertRepository, RegionRepository $regionRepository,
-                                CategoryRepository $categoryRepository)
+    public function __construct(AdvertRepository $advertRepository)
     {
         $this->middleware('auth:seller');
         $this->advertsRepo = $advertRepository;
-        $this->categoryRepo = $categoryRepository;
-        $this->regionRepo = $regionRepository;
     }
 
 
@@ -47,7 +38,7 @@ class AddServiceController extends AddAdvertBaseController
     {
 
         return view('addeditadverts.service-create')->with(['seller' => auth()->user(),
-            'regions' => $this->regionRepo->get(),
+            'regions' => Region::all(),
             'categories' => Category::where('cat_type','like','Service')->get(),
             'subcategories' => SubCategory::all()]);
     }
@@ -58,38 +49,11 @@ class AddServiceController extends AddAdvertBaseController
      */
     public function store(CreateServiceAdvertRequest $request)
     {
-        if ($request->has('subcat_id')) {
-            $subcategories = $request['subcat_id'];
-            $category = Category::find($request['category_id']);
-            foreach ($subcategories as $subcategory) {
-                $category->subcategories()->attach($subcategory);
-            }
-        }
+        $advert = $this->storeAdvertInfo($this->advertsRepo, $request);
 
-        $input = $request->all();
+        $advert->service()->create($request->all());
 
-        $advert = $this->advertsRepo->create($input);
-
-        $advert->service()->create($input);
-
-        if ($request->hasFile('img_name')) {
-            $images = $request->file('img_name');
-            $i = 0;
-            foreach ($images as $image) {
-                $filename = time() . $i . '.' . $image->getClientOriginalExtension();
-                $location = public_path('images/' . $filename);
-                Image::make($image)->resize(900, 600)->save($location);
-                $input['img_name'] = $filename;
-                $advert->images()->create($input);
-                $i++;
-            }
-        }
-
-        $advert->location()->create($input);
-
-        $advert->categories()->attach($input['category_id']);
-
-        Flash::success('Advert saved successfully.');
+        Flash::success('Service advert saved successfully.');
 
         return redirect(route('seller.service-advert.show-all'));
     }

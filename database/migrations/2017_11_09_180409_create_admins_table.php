@@ -23,7 +23,7 @@ class CreateAdminsTable extends Migration
             $table->timestamps();
         });
 
-        // Insert some stuff
+        // Insert default admin account
         DB::table('admins')->insert(
             array(
                 'first_name' => 'Default',

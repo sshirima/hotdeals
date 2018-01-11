@@ -23,6 +23,17 @@ class CreateSellersTable extends Migration
             $table->rememberToken();
             $table->timestamps();
         });
+
+        // Insert default admin account
+        DB::table('sellers')->insert(
+            array(
+                'first_name' => 'Default',
+                'last_name' => 'Admin',
+                'email' => 'admin@localhost.com',
+                'phonenumber' => '255754710618',
+                'password' => bcrypt('password')
+            )
+        );
     }
 
     /**

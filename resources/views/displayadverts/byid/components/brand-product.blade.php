@@ -1,0 +1,1 @@
+<div>{{$advert->product->brand}}</div>

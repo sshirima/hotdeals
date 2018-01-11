@@ -30,6 +30,7 @@ class Advert extends Model
         'description' => 'required',
         'expiredate' => 'required|date',
         'approveddate' => 'date',
+        'img_name' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         'seller_id' => 'required'
     ];
     public $table = 'adverts';

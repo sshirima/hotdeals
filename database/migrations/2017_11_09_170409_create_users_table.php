@@ -22,6 +22,15 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->timestamps();
         });
+        // Insert default user account
+        DB::table('users')->insert(
+            array(
+                'first_name' => 'Default',
+                'last_name' => 'Admin',
+                'email' => 'admin@localhost.com',
+                'password' => bcrypt('password')
+            )
+        );
     }
 
     /**
