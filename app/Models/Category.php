@@ -49,6 +49,6 @@ class Category extends Model
 
     public function subcategories()
     {
-        return $this->belongsToMany('App\Models\Subcategory', 'category_subcategory', 'category_id', 'subcategory_id');
+        return $this->belongsToMany('App\Models\SubCategory', 'category_subcategory', 'category_id', 'subcategory_id');
     }
 }
