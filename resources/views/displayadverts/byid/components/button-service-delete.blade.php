@@ -1,5 +1,5 @@
 <div class="row" style="padding: 10px">
-    <a>
+    <a href="{{route('service-advert.delete', $advert->id)}}">
         <div class="btn btn-danger" style="width: 100%">
             <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Delete advert
         </div>

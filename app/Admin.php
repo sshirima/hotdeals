@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Notifications\AdminResetPasswordNotification;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -27,8 +28,18 @@ class Admin extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function getIsAdminAttribute()
+    /**
+     * Validation rules
+     *
+     * @var array
+     */
+    public static $rules = [
+        'first_name' => 'required|max:255',
+        'last_name' => 'required|max:255'
+    ];
+
+    public function sendPasswordResetNotification($token)
     {
-        return true;
+        $this->notify(new AdminResetPasswordNotification($token));
     }
 }

@@ -33,7 +33,7 @@ class AddAdvertBaseController extends Controller
             $images = $request->file('img_name');
             $i = 0;
             foreach ($images as $img) {
-                Image::saveImageS3($advert, $i, $img);
+                Image::saveImageToStorage($advert, $i, $img);
                 $i++;
             }
         }

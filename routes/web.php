@@ -14,7 +14,8 @@
 /**
  * Public un-authentiacted routes
  */
-Route::get('/', 'HomeController@index')->name('home');
+Route::get('/', 'HomeController@index');
+Route::get('/home', 'HomeController@home')->name('home');
 
 Auth::routes();
 
@@ -34,6 +35,8 @@ Route::get('/services/category/{id}', 'DisplayAdverts\ShowServiceController@show
 Route::prefix('user')->group(function () {
     Route::get('/', 'UserController@index')->name('user.dashboard');
     Route::get('/logout', 'Auth\LoginController@userLogout')->name('user.logout');
+    Route::get('/password/change', 'Auth\ChangePassword\UserCPController@showForm')->name('user.password.change');
+    Route::post('/password/change', 'Auth\ChangePassword\UserCPController@changePassword')->name('user.password.update');
     Route::get('advert/products', 'DisplayAdverts\UserShowProductController@showAll')->name('user.product-advert.show-all');
     Route::get('advert/services', 'DisplayAdverts\UserShowServiceController@showAll')->name('user.service-advert.show-all');
 
@@ -47,6 +50,10 @@ Route::prefix('user')->group(function () {
     Route::post('/comment/update', 'CommentController@update')->name('comment.update');
 
     Route::post('/rate/store', 'RateController@store')->name('rate.store');
+
+    Route::get('profile/view', 'AccountProfilesShow\ShowUserProfileController@show')->name('user.profile.show');
+    Route::get('profile/edit', 'AccountProfileEdit\EditUserProfileController@edit')->name('user.profile.edit');
+    Route::put('profile/update/{id}', 'AccountProfileEdit\EditUserProfileController@update')->name('user.profile.update');
 });
 
 /**
@@ -59,6 +66,8 @@ Route::prefix('admin')->group(function () {
     Route::get('/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');
     Route::post('/login', 'Auth\AdminLoginController@login')->name('admin.login.submit');
     Route::get('/logout', 'Auth\AdminLoginController@logout')->name('admin.logout');
+    Route::get('/password/change', 'Auth\ChangePassword\AdminCPController@showForm')->name('admin.password.change');
+    Route::post('/password/change', 'Auth\ChangePassword\AdminCPController@changePassword')->name('admin.password.update');
 
     Route::get('advert/products', 'DisplayAdverts\AdminShowProductController@showAll')->name('admin.product-advert.show-all');
     Route::get('advert/services', 'DisplayAdverts\AdminShowServiceController@showAll')->name('admin.service-advert.show-all');
@@ -72,6 +81,16 @@ Route::prefix('admin')->group(function () {
     Route::get('/confirm/delete/{id}', 'AdminController@confirmDestroy')->name('admin.delete.confirm');
     Route::get('/approve/product/{id}', 'AuthorizeAdverts\ApproveAdvertController@approveProduct')->name('product-advert.approve');
     Route::get('/approve/service/{id}', 'AuthorizeAdverts\ApproveAdvertController@approveService')->name('service-advert.approve');
+
+    Route::get('profile/view', 'AccountProfilesShow\ShowAdminProfileController@show')->name('admin.profile.show');
+    Route::get('profile/edit', 'AccountProfileEdit\EditAdminProfileController@edit')->name('admin.profile.edit');
+    Route::put('profile/update/{id}', 'AccountProfileEdit\EditAdminProfileController@update')->name('admin.profile.update');
+
+    Route::post('password/email', 'Auth\AdminForgotPasswordController@sendResetLinkEmail')->name('admin.password.email');
+    Route::get('password/reset', 'Auth\AdminForgotPasswordController@showLinkRequestForm')->name('admin.password.request');
+    Route::post('password/reset', 'Auth\AdminResetPasswordController@reset');
+    Route::get('password/reset/{token}', 'Auth\AdminResetPasswordController@showResetForm')->name('admin.password.reset');
+
 });
 
 Route::resource('regions', 'RegionController');
@@ -94,6 +113,8 @@ Route::prefix('seller')->group(function () {
     Route::post('/login', 'Auth\SellerLoginController@login')->name('seller.login.submit');
     Route::get('/', 'SellerController@index')->name('seller.dashboard');
     Route::get('/logout', 'Auth\SellerLoginController@logout')->name('seller.logout');
+    Route::get('/password/change', 'Auth\ChangePassword\SellerCPasswordController@showForm')->name('seller.password.change');
+    Route::post('/password/change', 'Auth\ChangePassword\SellerCPasswordController@changePassword')->name('seller.password.update');
 
     Route::get('advert/products', 'DisplayAdverts\SellerShowProductController@showAll')->name('seller.product-advert.show-all');
     Route::get('advert/services', 'DisplayAdverts\SellerShowServiceController@showAll')->name('seller.service-advert.show-all');
@@ -107,13 +128,28 @@ Route::prefix('seller')->group(function () {
     Route::get('product/edit/{product}', 'EditAdverts\EditProductController@edit')->name('product-advert.edit');
     Route::post('products/{product}', 'EditAdverts\EditProductController@update')->name('product-advert.update');
 
+    Route::get('product/delete/{product}', 'DeleteAdverts\DeleteProductController@delete')->name('product-advert.delete');
+    Route::delete('product/delete/{product}', 'DeleteAdverts\DeleteProductController@remove')->name('product-advert.remove');
+
     Route::get('service/create', 'AddAdverts\AddServiceController@create')->name('service-advert.create');
     Route::post('service/create', 'AddAdverts\AddServiceController@store')->name('service-advert.store');
 
     Route::get('service/edit/{service}', 'EditAdverts\EditServiceController@edit')->name('service-advert.edit');
     Route::post('service/{service}', 'EditAdverts\EditServiceController@update')->name('service-advert.update');
 
+    Route::get('service/delete/{service}', 'DeleteAdverts\DeleteServiceController@delete')->name('service-advert.delete');
+    Route::delete('service/delete/{service}', 'DeleteAdverts\DeleteServiceController@remove')->name('service-advert.remove');
+
     Route::get('advert/products/status/{status}', 'DisplayAdverts\SellerShowProductController@showByStatus')->name('seller.product-advert.status');
     Route::get('advert/services/status/{status}', 'DisplayAdverts\SellerShowServiceController@showByStatus')->name('seller.service-advert.status');
+
+    Route::get('profile/view', 'AccountProfilesShow\ShowSellerProfileController@show')->name('seller.profile.show');
+    Route::get('profile/edit', 'AccountProfileEdit\EditSellerProfileController@edit')->name('seller.profile.edit');
+    Route::put('profile/update/{id}', 'AccountProfileEdit\EditSellerProfileController@update')->name('seller.profile.update');
+
+    Route::post('password/email', 'Auth\SellerForgotPasswordController@sendResetLinkEmail')->name('seller.password.email');
+    Route::get('password/reset', 'Auth\SellerForgotPasswordController@showLinkRequestForm')->name('seller.password.request');
+    Route::post('password/reset', 'Auth\SellerResetPasswordController@reset');
+    Route::get('password/reset/{token}', 'Auth\SellerResetPasswordController@showResetForm')->name('seller.password.reset');
 });
 

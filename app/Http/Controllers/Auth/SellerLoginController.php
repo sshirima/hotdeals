@@ -8,6 +8,7 @@ use Auth;
 
 class SellerLoginController extends Controller
 {
+
     public function __construct()
     {
         $this->middleware('guest:seller', ['except' => ['logout']]);

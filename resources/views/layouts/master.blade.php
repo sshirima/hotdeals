@@ -37,9 +37,7 @@
 
 <body>
 <div class="row" style="background-color: rgb(0, 156, 187)">
-    <div class="col-md-1"></div>
-    <div class="col-md-10">@yield('header')</div>
-    <div class="col-md-1"></div>
+    @yield('header')
 </div>
 <div style="padding: 5px" class="row">
     <div class="col-md-1"></div>

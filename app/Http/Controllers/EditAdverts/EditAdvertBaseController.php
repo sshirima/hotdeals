@@ -41,15 +41,15 @@ class EditAdvertBaseController extends Controller
             $i = 0;
             $previousImages = $advert->images()->get();
             foreach ($images as $img) {
-                Image::saveImageS3($advert, $i, $img);
+                Image::saveImageToStorage($advert, $i, $img);
                 $i++;
             }
             //Deleting old images
             foreach ($previousImages as $image) {
                 $image->forceDelete();
 
-                $status = Storage::disk('s3')->delete(basename($image->img_name));
-                /*\Storage::delete($image->img_name);*/
+                /*$status = Storage::disk('s3')->delete(basename($image->img_name));*/
+                $status = \Storage::delete($image->img_name);
             }
         }
     }

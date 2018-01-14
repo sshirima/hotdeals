@@ -5,7 +5,7 @@
 @endsection
 
 @section('header')
-    @include('includes.header_signin_signout')
+    @include('includes.headers.user-login')
 @endsection
 
 @section('content')
@@ -30,12 +30,12 @@
                         <input name="remember" type="checkbox" value="remember">
                         Remember me
                     </label>
-                    <a href="#" class="pull-right need-help">Need help? </a><span class="clearfix"></span>
+                    <a href="{{route('password.request')}}" class="pull-right need-help">Forgot your password?</a><span class="clearfix"></span>
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 </form>
-
             </div>
-            <a href="{{route('register')}}}" class="text-center new-account">Create an account </a>
+            <a href="{{route('register')}}" class="text-center new-account">Create new account</a>
+        <br><br>
         </div>
     </div>
 @endsection

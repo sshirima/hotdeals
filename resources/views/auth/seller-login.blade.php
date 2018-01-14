@@ -30,10 +30,12 @@
                         <input name="remember" type="checkbox" value="remember">
                         Remember me
                     </label>
-                    <a href="#" class="pull-right need-help">Need help? </a><span class="clearfix"></span>
+                    <a href="{{route('seller.password.request')}}" class="pull-right need-help">Forgot your password?</a><span class="clearfix"></span>
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 </form>
             </div>
+            <a href="{{route('seller.register')}}" class="text-center new-account">Create new account</a>
+            <br><br>
         </div>
     </div>
     </br>

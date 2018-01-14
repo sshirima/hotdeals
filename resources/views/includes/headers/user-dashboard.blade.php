@@ -5,10 +5,24 @@
             <h2 id="" class="col-sm-8" style="color:white"> {{$user->first_name . ' '.$user->last_name}}</h2>
         </div>
     </div>
-    <div class="col-md-3">
-        <div style="padding: 25px">
-            <span><a href="{{route('user.logout')}}">Logout</a> </span><span style="color: white">|</span>
-            <span><a href="#">Help</a></span>
-        </div>
+    <div class="col-md-offset-1  col-md-2">
+        <button class="dropdown btn btn-default " style="margin-top: 20px;">
+            <div href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                 aria-expanded="false">
+                <i class="fa fa-cog" aria-hidden="true"></i> Settings <span class="caret"></span>
+            </div>
+            <ul class="dropdown-menu">
+                <li><a href="{{route('user.profile.show')}}">
+                        <i class="fa fa-eye" aria-hidden="true"></i> View profile</a></li>
+                <li><a href="{{route('user.profile.edit')}}">
+                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit profile</a></li>
+                <li><a href="{{route('user.logout')}}">
+                        <i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a>
+                </li>
+                <li><a href="#">
+                        Help</a>
+                </li>
+            </ul>
+        </button>
     </div>
 </div>

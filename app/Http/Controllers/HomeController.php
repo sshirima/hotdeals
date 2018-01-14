@@ -4,11 +4,15 @@ namespace App\Http\Controllers;
 
 use App\AdvertManager;
 use App\Models\Category;
+use Illuminate\Support\Facades\Auth;
 use Laracasts\Flash\Flash;
 
 class HomeController extends Controller
 {
 
+    public function home(){
+        return redirect('/user');
+    }
     /**
      * Show the application dashboard.
      *

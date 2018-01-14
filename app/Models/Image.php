@@ -33,10 +33,10 @@ class Image extends Model
         'advert_id' => 'integer'
     ];
 
-    public static function saveImageS3($advert, $i, $img){
+    public static function saveImageToStorage($advert, $i, $img){
         $imageName = time() . $i . '.' . $img->getClientOriginalExtension();
 
-        //Resize image
+        /*//Resize image
         $image = \Intervention\Image\Facades\Image::make($img);
 
         $image->resize(900, 600);
@@ -46,11 +46,11 @@ class Image extends Model
 
         //Save image to the S3 storage
         $aws = Storage::disk('s3')->put($imageName, $imgRes, 'public');
-        $imageName = Storage::disk('s3')->url($imageName);
+        $imageName = Storage::disk('s3')->url($imageName);*/
 
         //Save image to the local application local storage {public folder}
-        /*$location = public_path('images/' . $imageName);
-        Image::make($image)->resize(900, 600)->save($location);*/
+        $location = public_path('images/' . $imageName);
+        \Intervention\Image\Facades\Image::make($img)->resize(900, 600)->save($location);
 
         $input['img_name'] = $imageName;
         $advert->images()->create($input);

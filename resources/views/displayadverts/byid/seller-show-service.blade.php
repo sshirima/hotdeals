@@ -15,6 +15,7 @@
 @section('content')
 
     <div class="row">
+        <div>@include('flash::message')</div>
         <div class="col-md-8" style="border-right:1px solid">
             @include('displayadverts.byid.components.title')
             @include('displayadverts.byid.components.brand-service')

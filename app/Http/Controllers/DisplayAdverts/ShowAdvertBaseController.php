@@ -124,4 +124,24 @@ class ShowAdvertBaseController extends Controller
 
         return $adverts;
     }
+
+    public static function getProductAdvertById($id){
+        $advert = Advert::find($id);
+        if (empty($advert)){
+            return false;
+        }
+        $advert['product'] = $advert->product()->first();
+        $advert = self::getAdvertDetails($advert);
+        return $advert;
+    }
+
+    public static function getServiceAdvertById($id){
+        $advert = Advert::find($id);
+        if (empty($advert)){
+            return false;
+        }
+        $advert['service'] = $advert->service()->first();
+        $advert = self::getAdvertDetails($advert);
+        return $advert;
+    }
 }

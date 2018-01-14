@@ -9,7 +9,7 @@
 @endsection
 
 @section('menubar')
-    @include('includes.menubar')
+    @include('includes.menus.menubar-user')
 @endsection
 
 @section('content')
