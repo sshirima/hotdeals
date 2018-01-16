@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Eloquent as Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Foundation\Http\FormRequest;
+use Laravel\Scout\Searchable;
 
 /**
  * Class Advert
@@ -19,6 +19,8 @@ use Illuminate\Foundation\Http\FormRequest;
 class Advert extends Model
 {
     use SoftDeletes;
+
+    use Searchable;
 
     /**
      * Validation rules
@@ -90,6 +92,16 @@ class Advert extends Model
     public function categories()
     {
         return $this->belongsToMany('App\Models\Category', 'advert_category', 'advert_id', 'category_id');
+    }
+
+    /**
+     * Get the index name for the model.
+     *
+     * @return string
+     */
+    public function searchableAs()
+    {
+        return 'adverts_index';
     }
 
 }

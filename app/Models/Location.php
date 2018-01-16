@@ -35,6 +35,10 @@ class Location extends Model
         'latitude' => 'string'
     ];
 
+    public function advert(){
+        return $this->hasOne(Advert::class,'id','advert_id');
+    }
+
     public function region()
     {
         return $this->belongsTo('App\Models\Region');

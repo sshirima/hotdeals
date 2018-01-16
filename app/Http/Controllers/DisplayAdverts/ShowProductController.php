@@ -12,6 +12,8 @@ use App\AdvertManager;
 use App\Http\Controllers\CategoryController;
 use App\Models\Advert;
 use App\Models\Category;
+use App\Models\Location;
+use App\Models\Region;
 use App\Repositories\AdvertRepository;
 use Laracasts\Flash\Flash;
 
@@ -56,6 +58,40 @@ class ShowProductController extends ShowAdvertBaseController
         $adverts = $this->productAdvertByCategory($category_id);
 
         return view('displayadverts.bycategory.show-products')->with(['adverts' => $adverts]);
+    }
+
+    public function showPerRegion($regionName = 'Dar es Salaam')
+    {
+        $locations = Region::select()->where(['reg_name'=>$regionName])->first()->locations()->get();
+        $ads = array();
+
+        foreach ($locations as $location){
+            $ad = $location->advert()->select(['id', 'title', 'approved', 'expiredate', 'seller_id','adv_type'])->where(['approved' => true])->first();
+            if (!$ad == null){
+                array_push($ads, $ad);
+            }
+        }
+
+        if (!empty($ads)){
+            $productAdverts = array();
+            $serviceAdverts = array();
+            foreach ($ads as $advert){
+                if($advert->adv_type === 'Product'){
+                    array_push($productAdverts, $advert);
+                } else {
+                    array_push($serviceAdverts, $advert);
+                }
+            }
+            if (sizeof($productAdverts) > sizeof($serviceAdverts)){
+                $productAdverts = $this->getProductAdvertInfo($productAdverts);
+
+                return view('displayadverts.bylocation.showall-products')->with(['adverts' => $productAdverts]);
+            } else {
+                $serviceAdverts = $this->getServiceAdvertInfo($serviceAdverts);
+
+                return view('displayadverts.bylocation.showall-services')->with(['adverts' => $serviceAdverts]);
+            }
+        }
     }
 
 }

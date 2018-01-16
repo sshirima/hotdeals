@@ -17,7 +17,7 @@ class AddColumnTypeCategories extends Migration
             $table->enum('cat_type', ['Product', 'Service'])->nullable();
         });
         //Add default Service categories
-        DB::table('categories')->insert(array('cat_name' => 'Beauty & Spas', 'cat_type' => 'Service'));
+        /*DB::table('categories')->insert(array('cat_name' => 'Beauty & Spas', 'cat_type' => 'Service'));
         DB::table('categories')->insert(array('cat_name' => 'Food & Drink', 'cat_type' => 'Service'));
         DB::table('categories')->insert(array('cat_name' => 'Health & Fitness ', 'cat_type' => 'Service'));
         DB::table('categories')->insert(array('cat_name' => 'Home Services', 'cat_type' => 'Service'));
@@ -136,7 +136,7 @@ class AddColumnTypeCategories extends Migration
         DB::table('categories')->insert(array('cat_name' => 'Plus Size Clothing ', 'cat_type' => 'Product'));
         DB::table('categories')->insert(array('cat_name' => 'Accessories ', 'cat_type' => 'Product'));
         DB::table('categories')->insert(array('cat_name' => 'Clothing ', 'cat_type' => 'Product'));
-        DB::table('categories')->insert(array('cat_name' => 'Shoes ', 'cat_type' => 'Product'));
+        DB::table('categories')->insert(array('cat_name' => 'Shoes ', 'cat_type' => 'Product'));*/
 
     }
 

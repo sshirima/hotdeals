@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-    Service adverts
+    Advert services
 @endsection
 
 @section('header')
@@ -18,13 +18,14 @@
        ['topCategories'=>$topCategories,
        'link_category'=>'services.category.show'])
         @endcomponent
-        @foreach($adverts->chunk(3) as $items)
-            @foreach($items as $advert)
+        @if(empty($adverts))
+            Nothing was found
+        @else
+            @foreach($adverts as $advert)
                 @include('displayadverts.showall.components.service-poster')
             @endforeach
-        @endforeach
+        @endif
     </div>
-    @component('components.paginate',['objects'=>$adverts])@endcomponent
 @endsection
 
 @section('footer')

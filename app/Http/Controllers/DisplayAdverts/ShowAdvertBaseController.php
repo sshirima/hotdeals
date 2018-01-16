@@ -18,7 +18,7 @@ class ShowAdvertBaseController extends Controller
 {
     public static $return_advert_column = ['id', 'title', 'approved', 'expiredate', 'seller_id'];
 
-    public static $PAGE_SIZE = 5;
+    public static $PAGE_SIZE = 11;
 
     /**
      * Get details of the advert

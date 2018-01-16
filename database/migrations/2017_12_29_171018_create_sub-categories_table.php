@@ -17,7 +17,7 @@ class CreateSubCategoriesTable extends Migration
             $table->increments('subcat_id');
             $table->string('subcat_name', 50);
         });
-        DB::table('subcategories')->insert(array('subcat_name' => 'Car Audio'));
+       /* DB::table('subcategories')->insert(array('subcat_name' => 'Car Audio'));
         DB::table('subcategories')->insert(array('subcat_name' => 'Car Care'));
         DB::table('subcategories')->insert(array('subcat_name' => 'Car Electronics'));
         DB::table('subcategories')->insert(array('subcat_name' => 'Car Safety & Security'));
@@ -88,7 +88,7 @@ class CreateSubCategoriesTable extends Migration
         DB::table('subcategories')->insert(array('subcat_name' => 'Cafes & Treats '));
         DB::table('subcategories')->insert(array('subcat_name' => 'Breweries, Wineries & Distilleries'));
         DB::table('subcategories')->insert(array('subcat_name' => 'Bars '));
-        DB::table('subcategories')->insert(array('subcat_name' => 'Gyms '));
+        DB::table('subcategories')->insert(array('subcat_name' => 'Gyms '));*/
 
     }
 

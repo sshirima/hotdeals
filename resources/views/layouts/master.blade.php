@@ -46,6 +46,35 @@
     </div>
     <div class="col-md-1"></div>
 </div>
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+        <div class="row">
+            <div class="col-md-3">
+                @yield('col-md-3')
+            </div>
+            <div class="col-md-9">
+                @yield('col-md-9')
+            </div>
+        </div>
+    </div>
+    <div class="col-md-1"></div>
+</div>
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+        <div class="row">
+            <div class="col-md-2">
+                @yield('col-md-2')
+            </div>
+            <div class="col-md-10">
+                @yield('col-md-10')
+            </div>
+        </div>
+    </div>
+    <div class="col-md-1"></div>
+</div>
 
 <div class="wrapper row">
     <div class="col-md-1"></div>
@@ -55,6 +84,7 @@
     </div>
     <div class="col-md-1"></div>
 </div>
+
 <div class="push"></div>
 @yield('footer')
 </body>

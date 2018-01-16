@@ -39,5 +39,9 @@ class Region extends Model
         'reg_name' => 'string'
     ];
 
+    public function locations()
+    {
+        return $this->hasMany(Location::class);
+    }
 
 }

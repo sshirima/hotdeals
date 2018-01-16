@@ -8,7 +8,8 @@
                 @for($i=0;$i<count($advert->images);$i++)
                     <div style="width: 100%; height: 450px; padding: 5px"
                          class=" img-rounded item @if($i==0)active @endif">
-                        <img src="{{ URL::asset('images/'.$advert->images[$i]->img_name)}}">
+                        {{--<img src="{{ URL::asset('images/'.$advert->images[$i]->img_name)}}">--}}
+                        <img src="{{ $advert->images[$i]->img_name}}">
                     </div>
                 @endfor
             </div>

@@ -1,4 +1,5 @@
 <ul class="nav nav-pills nav-stacked col-md-3">
+    <h3 >Trending categories</h3>
     @foreach($topCategories as $topCategory)
         <li style="border-bottom: 1px solid lightgray">
             <a href="{{route($link_category, $topCategory->id)}}">

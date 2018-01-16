@@ -16,6 +16,8 @@
  */
 Route::get('/', 'HomeController@index');
 Route::get('/home', 'HomeController@home')->name('home');
+Route::get('/search', 'Search\SearchAdvertController@search')->name('adverts-search');
+Route::get('/local', 'DisplayAdverts\ShowProductController@showPerRegion')->name('adverts.local');
 
 Auth::routes();
 

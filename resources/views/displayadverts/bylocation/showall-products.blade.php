@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-    Service adverts
+    Advert products
 @endsection
 
 @section('header')
@@ -12,16 +12,17 @@
     @include('includes.menus.menubar-default')
 @endsection
 
-@section('content')
+@section('col-md-3')
+    @component('includes.menus.vertical-navs.service-bylocation')
+    @endcomponent
+@endsection
+
+@section('col-md-9')
     <div class="container">
-        @component('includes.menus.vertical-navs.nav-user',
-       ['topCategories'=>$topCategories,
-       'link_category'=>'services.category.show'])
+        @component('includes.menus.vertical-navs.product-bylocation)
         @endcomponent
-        @foreach($adverts->chunk(3) as $items)
-            @foreach($items as $advert)
-                @include('displayadverts.showall.components.service-poster')
-            @endforeach
+        @foreach($adverts as $advert)
+            @include('displayadverts.showall.components.product-poster')
         @endforeach
     </div>
     @component('components.paginate',['objects'=>$adverts])@endcomponent
