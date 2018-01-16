@@ -19,13 +19,10 @@
 
 @section('col-md-9')
     <div class="container">
-        @component('includes.menus.vertical-navs.product-bylocation)
-        @endcomponent
         @foreach($adverts as $advert)
-            @include('displayadverts.showall.components.product-poster')
+            @include('displayadverts.showall.components.service-poster')
         @endforeach
     </div>
-    @component('components.paginate',['objects'=>$adverts])@endcomponent
 @endsection
 
 @section('footer')
